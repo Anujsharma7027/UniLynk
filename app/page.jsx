@@ -210,7 +210,7 @@ export default function Home() {
 
 
 
-      {/* Everything you need box(features) */}
+      {/* -----------------------Everything you need box(features)--------------------------- */}
 
 
       <div className="everythingyouneedbox">

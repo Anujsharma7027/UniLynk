@@ -33,6 +33,7 @@ nav {
 
 .navbuttons {
   display: flex;
+  color: #000;
   gap: 30px;
 }
 
@@ -390,6 +391,7 @@ a:focus-visible {
 
 
 .aboutcapsule {
+  color: #000;
   margin-top: 30px;
   margin-left: 30px;
   width: 280px;
@@ -541,6 +543,7 @@ a:focus-visible {
 }
 
 .fbox h3 {
+  color: #000;
   font-size: x-large;
   padding-top: 18px;
   padding-bottom: 5px;
@@ -574,6 +577,7 @@ a:focus-visible {
 }
 
 .aboutunilynkcapsule {
+  color: #000;
   width: fit-content;
   padding: 10px;
   padding-left: 20px;
@@ -637,6 +641,7 @@ a:focus-visible {
 }
 
 .aboutbox h3 {
+  color: #000;
   font-size: x-large;
   padding-top: 18px;
   padding-bottom: 5px;
@@ -790,6 +795,7 @@ a:focus-visible {
 }
 
 .footlogo{
+  color: #000;
   display: flex;
   align-items: center;
   font-size: 21px;
