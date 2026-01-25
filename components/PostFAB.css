@@ -24,8 +24,9 @@
 }
 
 .plus {
-  background-color: #e4dacc;
+  background-color: #eee3d3;
   font-size: 26px;
+  border: 1px solid rgb(230, 230, 230);;
 
   width: 39px;
   height: 39px;
