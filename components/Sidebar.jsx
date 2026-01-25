@@ -2,13 +2,9 @@
 
 import React from 'react'
 import "./Sidebar.css"
-import { useState } from 'react'
 import Link from 'next/link'
 
 const Sidebar = () => {
-
-
-
   return (
     <div>
       <header>
@@ -31,7 +27,6 @@ const Sidebar = () => {
               </button>
             </Link>
 
-
             <Link href='/dashboard/my-clubs'>
               <button className="dashbutton">
                 <img src="/dashboard/MyClubs.svg" alt="My Clubs icon" />
@@ -39,15 +34,16 @@ const Sidebar = () => {
               </button>
             </Link>
 
-
             <button className="dashbutton">
               <img src="/dashboard/Events.svg" alt="Events icon" />
               Events
             </button>
+            
             <button className="dashbutton gethelp">
               <img src="/dashboard/GetHelp.svg" alt="Get Help icon" />
               Get Help
             </button>
+            
             <div className="profile">
               <div className="profback">
                 <img src="/Background.jpg" alt="Profile background" />
@@ -61,13 +57,12 @@ const Sidebar = () => {
                 <div className="year">1st Year</div>
               </div>
               <div className="post">
-                <button>View Profle</button>
+                <button>View Profile</button>
               </div>
             </div>
           </div>
         </div>
       </header>
-
     </div>
   )
 }

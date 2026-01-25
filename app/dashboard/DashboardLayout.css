@@ -1,0 +1,11 @@
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.dashboard-main {
+    margin-left: 29%;
+    width: 71%;
+    min-height: 100vh;
+}

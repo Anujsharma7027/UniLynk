@@ -21,8 +21,8 @@ export default function Dashboard() {
 
 
 
-      <main>
-        <div className="feed">
+      <main className='dashmain'>
+        
           <div className="fhead">
 
             <div className="pricing-toggle">
@@ -43,12 +43,7 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-
-
-
-
-
-
+<div className="feed">
 
 
 
@@ -91,6 +86,7 @@ export default function Dashboard() {
 
         </div>
 
+      </main>
         <div className="msgsidebar">
           <div className="msgsidebarmain">
             <div className="msgsearchbar">
@@ -147,7 +143,6 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-      </main>
     </div>
   );
 }

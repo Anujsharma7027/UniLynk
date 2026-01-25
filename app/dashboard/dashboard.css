@@ -13,12 +13,6 @@
   border-radius: 15px;
 }
 
-.pricing-toggle{
-  position: fixed;
-}
-
-
-
 
 
 
@@ -42,20 +36,23 @@ body {
 
 .homebody {
   display: flex;
-  padding-left: 29%;
+  /* padding-left: 29%; */
+  /* margin-right: 20.76%; */
 }
 
 
 /* ========================== Feed starts here ============================ */
 
-main {
-  margin-left: 29%;
-  width: 71%;
+.dashmain {
+  margin-left: 0%;
+  
+  width: 56%; /* IMPORTANT */
   display: flex;
+  flex-direction: column;
 }
 
 .feed {
-  width: 56%;
+  width: 100%;
   height: 100vh;
 }
 
@@ -67,7 +64,8 @@ main {
   height: 50px;
   background-color: #fff;
   top: 0;
-  z-index: 5;
+  z-index: 10;
+  position: sticky;
 }
 
 /* ====================== Top For you/Club button =========================== */
@@ -77,6 +75,7 @@ main {
   padding: 4px;
   border-radius: 999px;
   width: fit-content;
+  position: relative;
 }
 
 .toggle-track {

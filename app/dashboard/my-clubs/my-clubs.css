@@ -1,3 +1,74 @@
-.my-clubsbody{
-    padding: 20px 30px 20px 30px;
+.my-clubsbody {
+    width: 100%;
+}
+
+.clubhead {
+    height: 110px;
+    min-width: 100%;
+    background-color: #fcfcff;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 32px;
+    min-height: 110px;
+    align-items: center;
+    padding-right: 150px;
+}
+
+.clubstextcont {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.myclubstext {
+    font-size: 25px;
+    
+}
+
+.clubnum {
+    color: grey;
+}
+
+.clubsearchcont {
+    background-color: white;
+    height: fit-content;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 0 8px;
+    border-radius: 10px;
+    gap: 8px;
+}
+
+.clubsearchcont input {
+    width: 95%;
+    background: transparent;
+    border: none;
+    outline: none;
+    height: 40px;
+    font-size: 16px;
+}
+
+.clubsearchcont img{
+    width: 18px;
+}
+
+.searchclub::placeholder {
+    color: #999;
+}
+
+.clublist{
+    height: 100%;
+    width: 100%;
+    background-color: #f7fafc;
+    padding-right: 150px;
+}
+
+.clubinfo{
+    width: 98%;
+    height: 100px;
+    background-color: red;
 }

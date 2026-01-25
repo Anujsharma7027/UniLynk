@@ -1,10 +1,18 @@
-import Sidebar from "@/components/Sidebar";
+"use client"
 
-export default function DashboardLayout({ children }) {
+import React from 'react'
+import Sidebar from '@/components/Sidebar'
+import './DashboardLayout.css'
+
+const DashboardLayout = ({ children }) => {
   return (
-    <div className="layout">
+    <div className="dashboard-container">
       <Sidebar />
-      <main className="content">{children}</main>
+      <main className="dashboard-main">
+        {children}
+      </main>
     </div>
-  );
+  )
 }
+
+export default DashboardLayout
