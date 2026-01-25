@@ -82,13 +82,24 @@
     background-color: #fff;
     border-radius: 15px;
     border: 1px solid rgb(230, 230, 230);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.04),
+        0 2px 4px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.clubinfo:hover {
+    box-shadow:
+        0 10px 15px rgba(0, 0, 0, 0.08),
+        0 4px 6px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
 }
 
 .clubppic {
     width: 110px;
     height: 110px;
     border-radius: 18px;
-    background-color: #f2ede6;
+    background-color: #f5339b;
     padding: 10px;
 }
 
@@ -120,7 +131,7 @@
     color: rgb(105, 105, 105);
 }
 
-.userposcont{
+.userposcont {
     height: 100%;
 }
 

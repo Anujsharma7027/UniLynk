@@ -33,17 +33,18 @@ const Sidebar = () => {
                 My Clubs
               </button>
             </Link>
+            <Link href='/dashboard/events'>
+              <button className="dashbutton">
+                <img src="/dashboard/Events.svg" alt="Events icon" />
+                Events
+              </button>
+            </Link>
 
-            <button className="dashbutton">
-              <img src="/dashboard/Events.svg" alt="Events icon" />
-              Events
-            </button>
-            
             <button className="dashbutton gethelp">
               <img src="/dashboard/GetHelp.svg" alt="Get Help icon" />
               Get Help
             </button>
-            
+
             <div className="profile">
               <div className="profback">
                 <img src="/Background.jpg" alt="Profile background" />
