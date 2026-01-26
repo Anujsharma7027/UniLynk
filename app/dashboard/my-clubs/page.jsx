@@ -5,124 +5,97 @@ import "./my-clubs.css"
 
 const MyClubsPage = () => {
 
-  
+
 
   return (
-      <div className='my-clubsbody'>
-        <div className="clubhead">
-          <div className="clubstextcont">
-            <h1 className="myclubstext">My Clubs</h1>
-            <div className="clubnum">You are in 2 Clubs</div>
+    <div className='my-clubsbody'>
+      <div className="myclubshead">
+        <div className="myclubsheader">
+          <div className="campuscom">Campus Community</div>
+          <div className="myclubs">My Clubs</div>
+        </div>
+        <div className="browsemorebtn">
+          <button className='browsemore'>Browse more <img src="/myclubs/arrowright.svg" alt="" /></button>
+        </div>
+      </div>
+      <div className="clubinfo">
+        <div className="clubimg">
+          <img src="/Defaultclublogo.svg" alt="" />
+        </div>
+        <div className="aboutclub">
+          <div className="clubname">Innovation Cell
+            <div className="notify">
+              <img src="/myclubs/bell.svg" alt="" />
+              3
+            </div>
+          </div>
+          <ul>
+            <li className='clubgenre'>Arts & Media</li>
+            <li>87 members</li>
+            <li>Joined Sept 2025</li>
+          </ul>
+          <div className="post-time">
+            <div className="userpost">Member</div>
+            <img src="/myclubs/pulse.svg" alt="pulse" />
+            <div className="lastpost">Last post 3h ago</div>
+          </div>
+          <div className="clubinfobtns">
+            <button className='open'>Open</button>
+            <button className='viewfeed'>View Feed</button>
+            <button className='events'>Events</button>
+          </div>
+        </div>
+      </div>
+
+      <hr className='mb-8' />
+
+      <div className="exploremore">Explore More</div>
+      <div className="myclubsmorecont">
+
+
+
+        <div className="myclubsmore">
+
+          <div className="myclubsmorer">
+            <div className="myclubsmoreimg myclubsmoreimgsearch">
+              <img src="/myclubs/Search.svg" alt="Search" />
+            </div>
+            <div className="myclubsmoret">
+              <div>Browse All Clubs</div>
+              <p>Discover new communities</p>
+            </div>
           </div>
 
-          <div className="clubsearchcont">
-            <img src="/dashboard/Search.svg" alt="Search icon" />
-            <input type="text" className='searchclub' placeholder="Search clubs..." />
+          <div className="myclubsarrow">
+            <img src="/myclubs/arrow.svg" alt="" />
           </div>
         </div>
 
-        <div className="clublist">
-          <div className="clubinfo">
-            <div className="clubppic">
-              <img src="/Defaultclublogo.svg" alt="" />
-            </div>
-            <div className="clubpinfo">
-              <h1>Innovation Cell</h1>
-              <div>
-                <img src="/dashboard/MyClubs.svg" alt="" />
-                <p>295</p>
-              </div>
-            </div>
-            <div className="userposcont">
-            <div className="userpos">Member</div>
-            </div>
 
-          </div>
-          <div className="clubinfo">
-            <div className="clubppic">
-              <img src="/Defaultclublogo.svg" alt="" />
-            </div>
-            <div className="clubpinfo">
-              <h1>Innovation Cell</h1>
-              <div>
-                <img src="/dashboard/MyClubs.svg" alt="" />
-                <p>295</p>
-              </div>
-            </div>
-            <div className="userposcont">
-            <div className="userpos">Member</div>
-            </div>
 
-          </div>
-          <div className="clubinfo">
-            <div className="clubppic">
-              <img src="/Defaultclublogo.svg" alt="" />
-            </div>
-            <div className="clubpinfo">
-              <h1>Innovation Cell</h1>
-              <div>
-                <img src="/dashboard/MyClubs.svg" alt="" />
-                <p>295</p>
-              </div>
-            </div>
-            <div className="userposcont">
-            <div className="userpos">Member</div>
-            </div>
+        
+        <div className="myclubsmore">
 
+          <div className="myclubsmorer">
+            <div className="myclubsmoreimg myclubsmoreimgtrending">
+              <img src="/myclubs/trending.svg" alt="trending" />
+            </div>
+            <div className="myclubsmoret">
+              <div>Trending Clubs</div>
+              <p>See what's popular</p>
+            </div>
           </div>
-          <div className="clubinfo">
-            <div className="clubppic">
-              <img src="/Defaultclublogo.svg" alt="" />
-            </div>
-            <div className="clubpinfo">
-              <h1>Innovation Cell</h1>
-              <div>
-                <img src="/dashboard/MyClubs.svg" alt="" />
-                <p>295</p>
-              </div>
-            </div>
-            <div className="userposcont">
-            <div className="userpos">Member</div>
-            </div>
 
+          <div className="myclubsarrow">
+            <img src="/myclubs/arrow.svg" alt="" />
           </div>
-          <div className="clubinfo">
-            <div className="clubppic">
-              <img src="/Defaultclublogo.svg" alt="" />
-            </div>
-            <div className="clubpinfo">
-              <h1>Innovation Cell</h1>
-              <div>
-                <img src="/dashboard/MyClubs.svg" alt="" />
-                <p>295</p>
-              </div>
-            </div>
-            <div className="userposcont">
-            <div className="userpos">Member</div>
-            </div>
-
-          </div>
-          <div className="clubinfo">
-            <div className="clubppic">
-              <img src="/Defaultclublogo.svg" alt="" />
-            </div>
-            <div className="clubpinfo">
-              <h1>Innovation Cell</h1>
-              <div>
-                <img src="/dashboard/MyClubs.svg" alt="" />
-                <p>295</p>
-              </div>
-            </div>
-            <div className="userposcont">
-            <div className="userpos">Member</div>
-            </div>
-
-          </div>
-          
         </div>
+
 
 
       </div>
+
+    </div>
   )
 }
 

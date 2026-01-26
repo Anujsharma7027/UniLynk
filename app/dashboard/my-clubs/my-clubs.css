@@ -1,149 +1,216 @@
 .my-clubsbody {
     width: 100%;
+    padding: 32px 76px;
 }
 
-.clubhead {
-    height: 110px;
-    min-width: 100%;
-    background-color: #fcfcff;
-    border-bottom: 1px solid rgb(230, 230, 230);
+.myclubshead {
     display: flex;
     justify-content: space-between;
-    padding: 20px 32px;
-    min-height: 110px;
-    align-items: center;
-    padding-right: 150px;
 }
 
-.clubstextcont {
+.browsemorebtn {
     display: flex;
-    flex-direction: column;
-    height: 100%;
+    align-items: end;
+    margin-bottom: 32px;
 }
 
-.myclubstext {
-    font-size: 25px;
-
+.browsemore {
+    display: flex;
+    gap: 5px;
+    font-size: 14px;
+    justify-content: center;
+    align-items: center;
 }
 
-.clubnum {
+.browsemore img {
+    width: 16px;
+    height: 16px;
+}
+
+.campuscom {
     color: grey;
+    font-size: 15px
 }
 
-.clubsearchcont {
-    background-color: white;
-    height: fit-content;
-    width: 300px;
+.myclubs {
+    font-size: 28px;
+    margin-bottom: 32px;
+}
+
+.clubimg {
+    width: 64px;
+    height: 64px;
+    padding: 8px;
+    background-color: #ab45ff;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ddd;
-    padding: 0 8px;
-    border-radius: 10px;
-    gap: 8px;
+    border-radius: 15px;
 }
 
-.clubsearchcont input {
-    width: 95%;
-    background: transparent;
-    border: none;
-    outline: none;
+.clubimg img {
     height: 40px;
-    font-size: 16px;
-}
-
-.clubsearchcont img {
-    width: 18px;
-}
-
-.searchclub::placeholder {
-    color: #999;
-}
-
-.clublist {
-    padding: 25px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    height: 100%;
-    width: 100%;
-    background-color: #f7fafc;
-    padding-right: 150px;
+    width: 40px;
 }
 
 .clubinfo {
     display: flex;
     gap: 20px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    width: 98%;
-    height: 150px;
-    background-color: #fff;
-    border-radius: 15px;
-    border: 1px solid rgb(230, 230, 230);
-    box-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.04),
-        0 2px 4px rgba(0, 0, 0, 0.04);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    padding-bottom: 24px;
 }
 
-.clubinfo:hover {
-    box-shadow:
-        0 10px 15px rgba(0, 0, 0, 0.08),
-        0 4px 6px rgba(0, 0, 0, 0.06);
-    transform: translateY(-2px);
-}
-
-.clubppic {
-    width: 110px;
-    height: 110px;
-    border-radius: 18px;
-    background-color: #f5339b;
-    padding: 10px;
-}
-
-
-
-.clubpinfo {
+.aboutclub {
     display: flex;
     flex-direction: column;
-    height: 100%;
-}
-
-.clubinfo h1 {
-    font-size: 25px;
-    margin: 10px 0 13px 0;
-}
-
-.clubpinfo div {
-    display: flex;
-    align-items: end;
     gap: 7px;
+    width: 100%;
 }
 
-.clubpinfo img {
-    height: 18px;
-}
-
-.clubinfo div p {
-    margin-bottom: -5px;
-    color: rgb(105, 105, 105);
-}
-
-.userposcont {
-    height: 100%;
-}
-
-.userpos {
+.clubname {
+    font-size: 20px;
+    color: #000;
     display: flex;
-    align-items: center;
+    justify-content: space-between;
+}
+
+.notify {
+    display: flex;
     justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    background-color: #000;
+    border-radius: 999px;
+    font-size: 15px;
+    padding: 6px 12px;
+    gap: 6px;
+    color: #fff;
+}
+
+.notify img {
+    width: 14px;
+    height: 14px;
+}
+
+.clubinfo ul {
+    display: flex;
+    list-style: disc;
+    gap: 25px;
+    font-size: 15px;
+    color: grey;
+}
+
+.clubgenre {
+    list-style: none;
+}
+
+.post-time {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.userpost {
+    height: fit-content;
+    font-size: 13px;
     width: fit-content;
     padding: 0 12px;
-    /* border: 1px solid rgb(230, 230, 230); */
     border-radius: 8px;
     background-color: #f2f6fa;
+    color: #000;
+    /* color: rgb(89, 89, 89); */
+}
+
+.lastpost {
+    font-size: 13px;
     color: rgb(89, 89, 89);
-    margin-top: 15px;
+}
+
+.post-time img {
+    width: 12px;
+    height: 12px;
+    margin-top: 4px;
+    margin-left: 5px;
+}
+
+.clubinfobtns {
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+}
+
+.open {
+    width: fit-content;
+    height: fit-content;
+    padding: 8px 24px;
+    border-radius: 12px;
+    color: #fff;
+    background-color: #000;
+}
+
+.exploremore{
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.myclubsmorecont{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.myclubsmorer{
+    display: flex;
+    gap: 10px;
+}
+
+.myclubsmore{
+    width: 100%;
+    height: 80px;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 15px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+}
+
+.myclubsmore:hover{
+    background-color: #f8fafc; /* slate-50 */
+  border-color: #0f172a;     /* slate-900 */
+}
+
+.myclubsmoreimg img{
+    width: 20px;
+    height: 20px;
+}
+
+.myclubsmoreimg{
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.myclubsmoreimgsearch{
+  background-color: #dbebff;
+}
+
+.myclubsmoreimgtrending{
+    background-color: #dcfce8;
+}
+
+.myclubsmoret p{
+    font-size: 14px;
+    color: gray;
+}
+
+.myclubsarrow img{
+    width: 20px;
+    height: 20px;
 }

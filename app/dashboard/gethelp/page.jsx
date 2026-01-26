@@ -112,7 +112,7 @@ const Gethelppage = () => {
                                 <img src="/gethelp/questionmark.svg" alt="" />
                             </div>
                             <div className="faqans">
-                                <h1>How do I create my first club?</h1>
+                                <div>How do I create my first club?</div>
                                 <p>Click the 'Join Club' button and select 'Create New Club' to get started.</p>
                             </div>
                         </div>
@@ -125,7 +125,7 @@ const Gethelppage = () => {
                                 <img src="/gethelp/questionmark.svg" alt="" />
                             </div>
                             <div className="faqans">
-                                <h1>How can I invite members to join?</h1>
+                                <div>How can I invite members to join?</div>
                                 <p>Share your club's unique link found in the club settings page.</p>
                             </div>
                         </div>
@@ -139,7 +139,7 @@ const Gethelppage = () => {
                                 <img src="/gethelp/questionmark.svg" alt="" />
                             </div>
                             <div className="faqans">
-                                <h1>What's the best way to promote events?</h1>
+                                <div>What's the best way to promote events?</div>
                                 <p>Use the event announcement feature to notify all members instantly.</p>
                             </div>
                         </div>
@@ -153,7 +153,7 @@ const Gethelppage = () => {
                                 <img src="/gethelp/questionmark.svg" alt="" />
                             </div>
                             <div className="faqans">
-                                <h1>Can I manage multiple clubs?</h1>
+                                <div>Can I manage multiple clubs?</div>
                                 <p>Yes! There's no limit to how many clubs you can join or manage..</p>
                             </div>
                         </div>
@@ -167,7 +167,7 @@ const Gethelppage = () => {
                                 <img src="/gethelp/questionmark.svg" alt="" />
                             </div>
                             <div className="faqans">
-                                <h1>Is ULynk free to use?</h1>
+                                <div>Is ULynk free to use?</div>
                                 <p>Yes! ULynk is completely free for all students and clubs on campus.</p>
                             </div>
                         </div>
