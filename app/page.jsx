@@ -4,7 +4,9 @@ import Link from "next/link";
 import "./home.css"
 import Loginbtn from '../components/Logincard';
 
+
 export default function Home() {
+  
 
   return (
     <>

@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { useSession, signIn, signOut } from "next-auth/react"
 import "./Logincard.css"
+import Modal from './Modal';
 
 
 
@@ -17,6 +18,7 @@ const Loginbtn = () => {
   const { data: session } = useSession()
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [isSignIn, setIsSignIn] = useState(false);
+  const [showModal, setShowModal] = useState(false)
 
 
   const [user, Setuser] = useState({
@@ -142,8 +144,7 @@ const Loginbtn = () => {
             </div>
             <a href="#" className="forgot-password">Forgot password?</a>
           </div>
-
-          <button className="submit-btn active" onClick={handleLogin}>
+          <button type='button' className="submit-btn active" onClick={handleLogin}>
             Sign In
           </button>
 
@@ -235,11 +236,12 @@ const Loginbtn = () => {
             type='submit'
             className={`submit-btn ${isTermsChecked ? 'active' : ''}`}
             id="createBtn"
-            onClick={handleLogin}
+            onClick={() => {setShowModal(true);  handleLogin();}}
             disabled={!isTermsChecked}
           >
             Create Account
           </button>
+          {showModal && <Modal onClose={() => setShowModal(false)}/>}
 
           <div className="footer">
             Already have an account? <a href="#" onClick={(e) => { e.preventDefault(); setIsSignIn(true); }}>Sign in</a>
