@@ -251,10 +251,19 @@ const Loginbtn = () => {
           </div>
 
           <button
-            type='submit'
+            type='button'
             className={`submit-btn ${isTermsChecked ? 'active' : ''}`}
             id="createBtn"
-            onClick={() => {setShowModal(true);  handleLogin(); sendOtp();}}
+
+
+
+
+
+
+
+
+            onClick={() => { sendOtp()}}//setShowModal(true);  handleLogin(); add before sendOtp()
+            
             disabled={!isTermsChecked}
           >
             Create Account

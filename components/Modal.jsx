@@ -1,9 +1,12 @@
-import React, { useRef } from 'react'
-import './modal.css'
-import { useEffect } from 'react';
-import { useState } from 'react';
+"use client";
 
-const Modal = ({ onClose }) => {
+import React, { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import "./modal.css";
+
+const Modal = ({ onClose, email }) => {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const modalRef = useRef(null);
   const inputRefs = useRef([]);
   const [isOtpComplete, setIsOtpComplete] = useState(false);
@@ -12,77 +15,115 @@ const Modal = ({ onClose }) => {
     inputRefs.current[0]?.focus();
   }, []);
 
-
   const verifyOtp = async () => {
-  const otp = inputRefs.current.map(input => input.value).join("");
-  const email = "animemerch90@gmail.com";
+  const otp = inputRefs.current
+    .map(input => input?.value || "")
+    .join("");
 
-  console.log("OTP:", otp, typeof otp);     // must be string
-  console.log("Email:", email, typeof email); // must be string
+  if (otp.length !== 6) {
+    alert("Please enter complete OTP");
+    return;
+  }
+
+
+
+
+
+
+
+  console.log("VERIFY EMAIL:", email);
+console.log("VERIFY OTP:", otp);
+
+
+
+
+
+
+
+
+
+
 
   const res = await fetch("/api/auth/verify-otp", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, otp }), // ✅ SAFE
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, otp }),
   });
 
   const data = await res.json();
-  localStorage.setItem("token", data.token);
-};
 
+  if (!res.ok) {
+    alert(data.error || "OTP verification failed");
+    return;
+  }
+
+  // ✅ Cookie already set by server
+  router.push("/dashboard");
+};
 
 
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      onClose()
+      onClose();
     }
-  }
-
-  const handleChange = (e, index) => {
-    const value = e.target.value;
-
-    // Allow only digits
-    if (!/^[0-9]?$/.test(value)) return;
-
-    // Move forward
-    if (value && index < inputRefs.current.length - 1) {
-      inputRefs.current[index + 1].focus();
-    }
-
-    // Check if all inputs are filled
-    const allFilled = inputRefs.current.every(
-      (input) => input && input.value.length === 1
-    );
-
-    setIsOtpComplete(allFilled);
   };
 
 
+  const handleChange = (e, index) => {
+    if (!/^[0-9]?$/.test(e.target.value)) return;
+
+    if (e.target.value && index < 5) {
+      inputRefs.current[index + 1].focus();
+    }
+
+    setIsOtpComplete(
+      inputRefs.current.every(input => input?.value.length === 1)
+    );
+  };
+
   const handleKeyDown = (e, index) => {
-    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+    if (e.key === "Backspace" && !e.target.value && index > 0) {
       inputRefs.current[index - 1].focus();
     }
 
     setTimeout(() => {
-    const allFilled = inputRefs.current.every(
-      (input) => input && input.value.length === 1
-    );
-    setIsOtpComplete(allFilled);
-  }, 0);
+      setIsOtpComplete(
+        inputRefs.current.every(input => input?.value.length === 1)
+      );
+    }, 0);
   };
 
-
   const handlePaste = (e) => {
-    const data = e.clipboardData.getData('text').slice(0, 6);
-    data.split('').forEach((char, index) => {
-      if (inputRefs.current[index]) {
-        inputRefs.current[index].value = char;
+    const data = e.clipboardData.getData("text").slice(0, 6);
+    data.split("").forEach((char, i) => {
+      if (inputRefs.current[i]) {
+        inputRefs.current[i].value = char;
       }
     });
     inputRefs.current[data.length - 1]?.focus();
   };
+
+
+const registerUser = async () => {
+  const res = await fetch("/api/auth/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email,
+      password: localStorage.getItem("signup_password"),
+    }),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    alert(data.error);
+    return;
+  }
+
+  router.push("/dashboard");
+};
+
 
 
 
@@ -103,7 +144,7 @@ const Modal = ({ onClose }) => {
 
           <div className="usermail">
             <img src="/Modal/mail.svg" alt="" />
-            animemerch90@gmail.com
+            {email}
           </div>
         </div>
 
@@ -124,11 +165,12 @@ const Modal = ({ onClose }) => {
 
         <button
   className={`verifycontinue ${isOtpComplete ? 'active' : ''}`}
-  disabled={!isOtpComplete}
+  disabled={!isOtpComplete || loading}
   onClick={verifyOtp}
 >
-  Verify & Continue
+  {loading ? "Verifying..." : "Verify & Continue"}
 </button>
+
 
         <hr />
 

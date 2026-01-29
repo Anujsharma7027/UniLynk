@@ -884,10 +884,12 @@ a:focus-visible {
 
 .product ul li:hover{
   color: #000;
+  text-decoration: underline;
 }
 
 .company ul li:hover{
   color: #000;
+  text-decoration: underline;
 }
 
 .company ul{
