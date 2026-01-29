@@ -18,19 +18,6 @@ export async function POST(req) {
 
     await connectDB();
 
-    // 🔒 Ensure OTP was verified BEFORE registration
-    const otpVerified = await OTP.findOne({
-      email: normalizedEmail,
-      purpose: "register",
-    });
-
-    if (otpVerified) {
-      return Response.json(
-        { error: "OTP not verified" },
-        { status: 403 }
-      );
-    }
-
     const existingUser = await User.findOne({
       email: normalizedEmail,
     });

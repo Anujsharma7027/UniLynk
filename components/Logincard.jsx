@@ -29,17 +29,6 @@ const Loginbtn = () => {
 
   const emailRef = useRef(null);
 
-  const sendOtp = async () => {
-  const email = emailRef.current.value; // ✅ STRING
-
-  await fetch("/api/auth/send-otp", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email }),
-  });
-};
 
 
 
@@ -81,6 +70,37 @@ const Loginbtn = () => {
       console.log(`Signed in as ${session.user.name}`)
     }
   }, [session]);
+
+
+
+
+
+
+const handleCreateAccount = async () => {
+  // store password TEMPORARILY (safe enough for OTP flow)
+  localStorage.setItem("signup_password", user.password);
+
+  const res = await fetch("/api/auth/send-otp", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: user.email,
+      purpose: "register",
+    }),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    alert(data.error);
+    return;
+  }
+
+  setShowModal(true); // ✅ OPEN MODAL
+};
+
+
+
 
 
   return (
@@ -254,17 +274,17 @@ const Loginbtn = () => {
             type='button'
             className={`submit-btn ${isTermsChecked ? 'active' : ''}`}
             id="createBtn"
-
-
-
-
-
-
-
-
-            onClick={() => { sendOtp()}}//setShowModal(true);  handleLogin(); add before sendOtp()
-            
             disabled={!isTermsChecked}
+
+
+
+
+
+
+
+
+            onClick={handleCreateAccount}//setShowModal(true);  handleLogin(); add before sendOtp()
+            
           >
             Create Account
           </button>

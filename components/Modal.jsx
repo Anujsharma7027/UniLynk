@@ -15,51 +15,38 @@ const Modal = ({ onClose, email }) => {
     inputRefs.current[0]?.focus();
   }, []);
 
-  const verifyOtp = async () => {
-  const otp = inputRefs.current
-    .map(input => input?.value || "")
-    .join("");
+const verifyOtp = async () => {
+  const otp = inputRefs.current.map(i => i.value).join("");
 
   if (otp.length !== 6) {
-    alert("Please enter complete OTP");
+    alert("Enter complete OTP");
     return;
   }
 
-
-
-
-
-
-
-  console.log("VERIFY EMAIL:", email);
-console.log("VERIFY OTP:", otp);
-
-
-
-
-
-
-
-
-
-
+  setLoading(true);
 
   const res = await fetch("/api/auth/verify-otp", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, otp }),
+    body: JSON.stringify({
+      email,
+      otp,
+      purpose: "register",
+    }),
   });
 
   const data = await res.json();
 
   if (!res.ok) {
-    alert(data.error || "OTP verification failed");
+    setLoading(false);
+    alert(data.error);
     return;
   }
 
-  // ✅ Cookie already set by server
-  router.push("/dashboard");
+  // ✅ OTP VERIFIED → REGISTER USER
+  await registerUser();
 };
+
 
 
   const closeModal = (e) => {
@@ -121,8 +108,10 @@ const registerUser = async () => {
     return;
   }
 
+  localStorage.removeItem("signup_password");
   router.push("/dashboard");
 };
+
 
 
 
