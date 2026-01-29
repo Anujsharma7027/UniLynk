@@ -1,14 +1,90 @@
 import React, { useRef } from 'react'
 import './modal.css'
+import { useEffect } from 'react';
+import { useState } from 'react';
 
-const Modal = ({onClose}) => {
-    const modalRef = useRef();
+const Modal = ({ onClose }) => {
+  const modalRef = useRef(null);
+  const inputRefs = useRef([]);
+  const [isOtpComplete, setIsOtpComplete] = useState(false);
 
-    const closeModal = (e) =>{
-      if(modalRef.current === e.target){
-        onClose()
-      }
+  useEffect(() => {
+    inputRefs.current[0]?.focus();
+  }, []);
+
+
+  const verifyOtp = async () => {
+  const otp = inputRefs.current.map(input => input.value).join("");
+  const email = "animemerch90@gmail.com";
+
+  console.log("OTP:", otp, typeof otp);     // must be string
+  console.log("Email:", email, typeof email); // must be string
+
+  const res = await fetch("/api/auth/verify-otp", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, otp }), // ✅ SAFE
+  });
+
+  const data = await res.json();
+  localStorage.setItem("token", data.token);
+};
+
+
+
+  const closeModal = (e) => {
+    if (modalRef.current === e.target) {
+      onClose()
     }
+  }
+
+  const handleChange = (e, index) => {
+    const value = e.target.value;
+
+    // Allow only digits
+    if (!/^[0-9]?$/.test(value)) return;
+
+    // Move forward
+    if (value && index < inputRefs.current.length - 1) {
+      inputRefs.current[index + 1].focus();
+    }
+
+    // Check if all inputs are filled
+    const allFilled = inputRefs.current.every(
+      (input) => input && input.value.length === 1
+    );
+
+    setIsOtpComplete(allFilled);
+  };
+
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+      inputRefs.current[index - 1].focus();
+    }
+
+    setTimeout(() => {
+    const allFilled = inputRefs.current.every(
+      (input) => input && input.value.length === 1
+    );
+    setIsOtpComplete(allFilled);
+  }, 0);
+  };
+
+
+  const handlePaste = (e) => {
+    const data = e.clipboardData.getData('text').slice(0, 6);
+    data.split('').forEach((char, index) => {
+      if (inputRefs.current[index]) {
+        inputRefs.current[index].value = char;
+      }
+    });
+    inputRefs.current[data.length - 1]?.focus();
+  };
+
+
 
 
 
@@ -24,22 +100,36 @@ const Modal = ({onClose}) => {
           <p>Please enter the 6-digit code we sent to</p>
         </div>
         <div className="usermailcont">
-          
+
           <div className="usermail">
             <img src="/Modal/mail.svg" alt="" />
-            harekrishna@hari.com
-            </div>
-        </div>
-        <div className="otpinputs">
-          <input className='otpinput' maxLength={1} type="text" />
-          <input className='otpinput' maxLength={1} type="text" />
-          <input className='otpinput' maxLength={1} type="text" />
-          <input className='otpinput' maxLength={1} type="text" />
-          <input className='otpinput' maxLength={1} type="text" />
-          <input className='otpinput' maxLength={1} type="text" />
+            animemerch90@gmail.com
+          </div>
         </div>
 
-        <button className="verifycontinue">Verify & Continue</button>
+        <div className="otpinputs" onPaste={handlePaste}>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <input
+              key={index}
+              type="text"
+              maxLength={1}
+              className="otpinput"
+              ref={(el) => (inputRefs.current[index] = el)}
+              onChange={(e) => handleChange(e, index)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+            />
+          ))}
+        </div>
+
+
+        <button
+  className={`verifycontinue ${isOtpComplete ? 'active' : ''}`}
+  disabled={!isOtpComplete}
+  onClick={verifyOtp}
+>
+  Verify & Continue
+</button>
+
         <hr />
 
         <div className="resendcont">

@@ -92,9 +92,21 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  border: 1px solid #000;
   padding: 14px 0;
   margin-bottom: 24px;
+  background-color: #e4e4e7;
+  color: grey;
+  cursor: not-allowed;
+}
+
+.verifycontinue.active{
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+.verifycontinue.active:hover{
+  background-color: #2d2d2d;
 }
 
 .resendcont{

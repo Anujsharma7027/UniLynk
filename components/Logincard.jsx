@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { useSession, signIn, signOut } from "next-auth/react"
 import "./Logincard.css"
 import Modal from './Modal';
+import { useRef } from 'react';
 
 
 
@@ -25,6 +26,22 @@ const Loginbtn = () => {
     email: "",
     password: "",
   });
+
+  const emailRef = useRef(null);
+
+  const sendOtp = async () => {
+  const email = emailRef.current.value; // ✅ STRING
+
+  await fetch("/api/auth/send-otp", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email }),
+  });
+};
+
+
 
   const handleInput = (e) => {
     let name = e.target.name;
@@ -200,6 +217,7 @@ const Loginbtn = () => {
               placeholder="Enter your email"
               required
               value={user.email}
+              ref={emailRef}
               onChange={handleInput} />
           </div>
 
@@ -236,12 +254,12 @@ const Loginbtn = () => {
             type='submit'
             className={`submit-btn ${isTermsChecked ? 'active' : ''}`}
             id="createBtn"
-            onClick={() => {setShowModal(true);  handleLogin();}}
+            onClick={() => {setShowModal(true);  handleLogin(); sendOtp();}}
             disabled={!isTermsChecked}
           >
             Create Account
           </button>
-          {showModal && <Modal onClose={() => setShowModal(false)}/>}
+          {showModal && <Modal email={user.email} onClose={() => setShowModal(false)}/>}
 
           <div className="footer">
             Already have an account? <a href="#" onClick={(e) => { e.preventDefault(); setIsSignIn(true); }}>Sign in</a>
