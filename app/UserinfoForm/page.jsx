@@ -16,7 +16,7 @@ const submit = async () => {
     await fetch("/api/user/update", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name:names, year, branch, skill })
+      body: JSON.stringify({ name:names, year, branch, skill ,})
     });
   };
 
