@@ -184,3 +184,59 @@ header {
 .gethelp:hover {
     background-color: #fee7e7;
 }
+.signout{
+   display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.signoutb {
+    width: 240px;
+    background-color: rgb(235, 90, 90);
+    color: #ffffff;
+    height: 40px;
+    margin-top: 35px;
+    border-radius: 23px;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+}
+.signoutb:hover {
+    background-color: #e01717;
+    transform: scale(1.02);
+}
+
+.options{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    height:498px;
+    margin: 20px 0;
+}
+.dashboardsettings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 616px;
+    width: 270px;
+}
+.settings2 {
+    width: 30px;
+    height: 30px;
+  
+}
+
+.settings2:hover {
+    background-color: #dfdfdf;
+}
+
+.settings2 img {
+    min-width: 30px;
+    height: 30px;
+ 
+}
+
+.settings2 img:hover {
+    transform: scale(3px);
+}
