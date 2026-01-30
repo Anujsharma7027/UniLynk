@@ -7,6 +7,7 @@
 }
 
 .unilynk{
+  color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,6 +43,7 @@
 }
 
 .usermail{
+  color: #000;
   border: 1px solid rgb(230, 230, 230);
   width: fit-content;
   padding: 8px 16px;

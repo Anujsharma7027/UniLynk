@@ -1,0 +1,191 @@
+.userinfoformbody{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f7fa;
+}
+
+.userdetailcard{
+    height: 600px;
+    width: 800px;
+    /* border: 1px solid black; */
+    border-radius: 20px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.detailhead{
+    display: flex;
+    height: 130px;
+    padding: 25px;
+    background-color: #2a3245;
+}
+
+.userprofilepic{
+    height: 80px;
+    width: 80px;
+    bottom: 43px;
+    border-radius: 200px;
+}
+
+.defaultimg img{
+    width: 50px;
+    height: 50px;
+}
+
+.defaultimg{
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 999px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userprofilepic .userimg{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 999px;
+}
+
+.plus{
+    position: relative;
+    top: 56px;
+    right: 20px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+    border: 2px solid #2a3245;
+    border-radius: 999px;
+}
+
+.headtext{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.unilynk{
+    color: #fff;
+    font-weight: bold;
+    font-size: 23px;
+}
+
+.studentreg{
+    color: rgb(163, 163, 163);
+    font-size: 14px;
+}
+
+/*=============================== detailmain==================================== */
+
+.detailmain{
+    padding: 25px;
+}
+
+.detailslabel{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.detailsicon{
+    width: 16px;
+    height: 16px;
+}
+
+input{
+    margin-top: 10px;
+    border-radius: .625rem;
+    width: 100%;
+    height: 40px;
+    padding: 10px 12px;
+    border: 2px solid black;
+    transition: all 0.1s ease;
+    margin-bottom: 16px;
+}
+
+input:focus{
+    outline: 4px solid #cbd5e1;
+}
+
+.branch-year{
+    display: flex;
+    justify-content: space-between;
+}
+
+.year, .branch{
+    width: 48%;
+}
+
+.branch-yearinput{
+    margin-top: 10px;
+    border-radius: .625rem;
+    width: 100%;
+    height: 40px;
+    padding: 10px 12px;
+    border: 2px solid black;
+    transition: all 0.1s ease;
+    margin-bottom: 16px;
+}
+
+.branch-yearinput:focus{
+    outline: 4px solid #cbd5e1;
+}
+
+.skillsinput{
+    margin-top: 10px;
+    border-radius: .625rem;
+    width: 100%;
+    height: 85px;
+    border: 1px solid black;
+    padding: 10px 12px;
+    border: 2px solid black;
+    transition: all 0.1s ease;
+    margin-bottom: 16px;
+    line-height: 1.4;
+    box-sizing: border-box;
+    overflow-y: auto;
+    scrollbar-width: none;
+    resize: none;
+}
+
+.skillsinput:focus{
+    outline: 4px solid #cbd5e1;
+}
+
+#submitusr{
+    margin-top: 15px;
+    width: 100%;
+    height: 45px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #0f172b;
+}
+
+#submitusr:hover{
+    background-color: #2a3245;
+}
+
+.pwdbyunilynk{
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    font-size: 12px;
+}
+
+.pwd{
+    color: gray;
+}
+
+.unilynkt{
+    color: black;
+}

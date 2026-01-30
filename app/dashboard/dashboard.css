@@ -1,4 +1,4 @@
-.userposts{
+.userposts {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-.userpost{
+.userpost {
   width: 95%;
   height: 300px;
   background-color: #e7e7e7;
@@ -45,8 +45,8 @@ body {
 
 .dashmain {
   margin-left: 0%;
-  
-  width: 56%; /* IMPORTANT */
+  width: 56%;
+  /* IMPORTANT */
   display: flex;
   flex-direction: column;
 }
@@ -339,7 +339,7 @@ body {
   margin-bottom: 15px;
 }
 
-.msgbar::placeholder{
+.msgbar::placeholder {
   counter-reset: grey;
 }
 

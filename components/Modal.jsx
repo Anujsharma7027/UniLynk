@@ -43,7 +43,7 @@ const verifyOtp = async () => {
     return;
   }
 
-  // ✅ OTP VERIFIED → REGISTER USER
+  // OTP VERIFIED → REGISTER USER
   await registerUser();
 };
 
@@ -109,7 +109,7 @@ const registerUser = async () => {
   }
 
   localStorage.removeItem("signup_password");
-  router.push("/dashboard");
+  router.push("/UserinfoForm");
 };
 
 
