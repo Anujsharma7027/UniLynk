@@ -3,7 +3,7 @@
 import React from 'react'
 import './UserinfoForm.css'
 import { useState } from "react";
-import { submit } from './submition';
+import Link from "next/link";
 
 
 const page = () => {
@@ -12,7 +12,13 @@ const page = () => {
   const [year, setYear] = useState("");
   const [skill, setSkill] = useState("");
  
-
+const submit = async () => {
+    await fetch("/api/user/update", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name:names, year, branch, skill })
+    });
+  };
 
 
 
@@ -86,7 +92,7 @@ const page = () => {
             <textarea className='skillsinput' placeholder='JavaScript, Python, React...' value={skill} onChange={(e) => setSkill(e.target.value)} ></textarea>
           </div>
 
-          <button id='submitusr' onClick={ ()=> {submit(names,branch,year,skill); saveName(names);}}>SUBMIT PROFILE</button>
+           <Link href="./dashboard"><button type="button" id='submitusr' onClick={submit}>SUBMIT PROFILE</button></Link>
 
           <hr className='mt-6 mb-2' />
 
