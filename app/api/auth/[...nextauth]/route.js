@@ -5,15 +5,12 @@ import { connectDB } from "@/lib/mongodb";
 import User from "@/models/user";
 
 export const authOptions = {
+  trustHost: true,
+
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
-      authorization: {
-        params: {
-          scope: "read:user user:email",
-        },
-      },
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -28,24 +25,35 @@ export const authOptions = {
   },
 
   callbacks: {
+    // 1️⃣ Ensure user exists
     async signIn({ user, account }) {
       await connectDB();
 
       if (!user?.email) return false;
 
-      const existingUser = await User.findOne({ email: user.email });
-
-      if (!existingUser) {
-        await User.create({
-          name: user.name,
+      await User.findOneAndUpdate(
+        { email: user.email },
+        {
           email: user.email,
+          name: user.name,
           image: user.image,
-          provider: account.provider,
-        });
-          return "/UserinfoForm";
-      }
+          provider: account?.provider,
+        },
+        { upsert: true, new: true }
+      );
 
       return true;
+    },
+
+    // 2️⃣ Decide WHERE to redirect
+    async redirect({ baseUrl }) {
+      try {
+        await connectDB();
+
+        return `${baseUrl}/redirect-handler`;
+      } catch {
+        return baseUrl;
+      }
     },
 
     async jwt({ token, user }) {
@@ -58,12 +66,14 @@ export const authOptions = {
     },
 
     async session({ session, token }) {
-      session.user.email = token.email;
+      if (session.user) {
+        session.user.email = token.email;
       session.user.name = token.name;
       session.user.id = token.id;
+      }
       return session;
-    }
-  }
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);

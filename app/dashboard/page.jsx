@@ -1,15 +1,14 @@
 import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]/route";
-import DashboardClient from './DashboardClient';
-import { getServerSession } from 'next-auth';
+import DashboardClient from "./DashboardClient";
 
+export default async function Page() {
+  const session = await getServerSession(authOptions);
 
-export default async function page() {
-    const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/");
+  }
 
-    // if(!session){
-    //     redirect("/")
-    // }
-
-  return <DashboardClient/>;
+  return <DashboardClient />;
 }

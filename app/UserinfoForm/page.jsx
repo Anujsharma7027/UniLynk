@@ -1,34 +1,66 @@
-"use client"
+"use client";
 
-import React from 'react'
-import './UserinfoForm.css'
 import { useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import "./UserinfoForm.css";
 
+export default function page() {
+  const router = useRouter();
 
-const page = () => {
-  const [names, setNames] = useState("");
+  const [name, setName] = useState("");
   const [branch, setBranch] = useState("");
   const [year, setYear] = useState("");
   const [skill, setSkill] = useState("");
- 
-const submit = async () => {
-    await fetch("/api/user/update", {
+  const [loading, setLoading] = useState(false);
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!name || !branch || !year) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  try {
+    setLoading(true);
+
+    const res = await fetch("/api/user/update", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name:names, year, branch, skill ,})
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include", // 🔥 REQUIRED for NextAuth
+      body: JSON.stringify({ name, branch, year, skill }),
     });
-  };
+
+    const data = await res.json();
+
+    if (res.status === 401) {
+      alert("Session expired. Please sign in again.");
+      router.push("/");
+      return;
+    }
+
+    if (!res.ok) {
+      throw new Error(data.error || "Profile update failed");
+    }
+
+    router.push("/dashboard");
+  } catch (err) {
+    console.error("Submit error:", err);
+    alert(err.message || "Something went wrong");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
 
 
   return (
 
-
-
-
     <div className="userinfoformbody">
-      <form className='userdetailcard'>
+      <form className='userdetailcard' onSubmit={handleSubmit}>
         <div className="detailhead">
           <div className="userprofilepic">
             <div className="defaultimg"><img src="./Userprofile/Defaultprofilepic.svg" alt="" /></div>
@@ -47,14 +79,14 @@ const submit = async () => {
           <div className="name">
             <div className="detailslabel"> <img className='detailsicon' src="./Userprofile/name.svg" alt="" />NAME</div>
             <input className='nameinput' type="text"
-              value={names}
-              onChange={(e) => setNames(e.target.value)} />
+              value={name}
+              onChange={(e) => setName(e.target.value)} />
           </div>
 
           <div className="branch-year">
             <div className="branch">
               <div className="detailslabel"><img className='detailsicon' src="./Userprofile/Suitcase.svg" alt="" />BRANCH</div>
-              <select required className='branch-yearinput' name="branch" id="" value={branch}
+              <select required className='branch-yearinput' name="branch" value={branch}
                 onChange={(e) => setBranch(e.target.value)}>
                 <option value="Select">Select</option>
                 <option value="PIE">Production and Industrial Engineering</option>
@@ -92,7 +124,9 @@ const submit = async () => {
             <textarea className='skillsinput' placeholder='JavaScript, Python, React...' value={skill} onChange={(e) => setSkill(e.target.value)} ></textarea>
           </div>
 
-           <Link href="./dashboard"><button type="button" id='submitusr' onClick={submit}>SUBMIT PROFILE</button></Link>
+<button id="submitusr" type="submit" disabled={loading}>
+            {loading ? "Saving..." : "SUBMIT PROFILE"}
+          </button>
 
           <hr className='mt-6 mb-2' />
 
@@ -106,5 +140,3 @@ const submit = async () => {
     </div>
   )
 }
-
-export default page
