@@ -29,7 +29,7 @@ const handleSubmit = async (e) => {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include", // 🔥 REQUIRED for NextAuth
+      credentials: "include", // REQUIRED for NextAuth
       body: JSON.stringify({ name, branch, year, skill }),
     });
 

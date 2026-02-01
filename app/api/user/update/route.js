@@ -21,7 +21,7 @@ export async function POST(req) {
         branch,
         year,
         skill,
-        profileCompleted: true, // 🔥 IMPORTANT
+        profileCompleted: true, //  IMPORTANT
       }
     );
 
