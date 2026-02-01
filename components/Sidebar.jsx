@@ -3,11 +3,21 @@
 import React from 'react'
 import "./Sidebar.css"
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from "react";
+import { usePathname } from 'next/navigation';
+import { signOut, useSession } from 'next-auth/react';
+import SignOutModal from './SignOutModal';
 
 const Sidebar = () => {
   const [settings, setSettings] = useState(true);
-  const [selected, setSelected] = useState("one");
+  const [showSignOutModal, setSignoutModal] = useState(false)
+  const pathname = usePathname();
+
+  const isActive = (path) => pathname === path;
+
+
+
   return (
 
     <div>
@@ -28,31 +38,27 @@ const Sidebar = () => {
                 <div className="dashboard">
 
                   <Link href='/dashboard'>
-                    <button className="dashbutton " type="radio" name="dashboardoption" value="one"
-                      checked={selected === "one"}
-                      onChange={() => setSelected("one")} >
+                    <button className={`dashbutton ${isActive("/dashboard") ? "active" : ""}`} >
                       <img src="/dashboard/Home.svg" alt="Home icon" />
                       Home
                     </button>
                   </Link>
 
                   <Link href='/dashboard/my-clubs'>
-                    <button className="dashbutton" type="radio" name="dashboardoption"   value="two"
-          checked={selected === "two"}
-          onChange={() => setSelected("two")}>
+                    <button className={`dashbutton ${isActive("/dashboard/my-clubs") ? "active" : ""}`}>
                       <img src="/dashboard/MyClubs.svg" alt="My Clubs icon" />
                       My Clubs
                     </button>
                   </Link>
-                  <Link href='/dashboard/events'>
-                    <button className="dashbutton" type="radio" name="dashboardoption">
+                  <Link className='eventlink' href='/dashboard/events'>
+                    <button className={`dashbutton ${isActive("/dashboard/events") ? "active" : ""}`}>
                       <img src="/dashboard/Events.svg" alt="Events icon" />
                       Events
                     </button>
                   </Link>
 
-                  <Link href='/dashboard/gethelp' type="radio" name="dashboardoption">
-                    <button className="dashbutton gethelp">
+                  <Link href='/dashboard/gethelp' >
+                    <button className={`dashbutton gethelp ${isActive("/dashboard/gethelp") ? "active" : ""}`}>
                       <img src="/dashboard/GetHelp.svg" alt="Get Help icon" />
                       Get Help
                     </button>
@@ -90,7 +96,7 @@ const Sidebar = () => {
                   </div>
 
                   <div className="settings2" onClick={() => setSettings(true)}>
-                    <img  src="/arrow.svg" alt="settings" />
+                    <img src="/myclubs/arrow.svg" alt="settings" />
                   </div>
                 </div>
                 <div className="dashboardsettings">
@@ -101,7 +107,8 @@ const Sidebar = () => {
 
 
                   <div className="signout">
-                    <button className="signoutb" >Sign out</button>
+                    <button className="signoutb" onClick={() => setSignoutModal(true)} >Sign out<Image src="/Logout/logout.svg" alt="Sign Out" width={20} height={25} ></Image></button>
+                    {showSignOutModal && <SignOutModal onClose={() => setSignoutModal(false)}/>}
                   </div>
 
                 </div>

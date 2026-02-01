@@ -1,0 +1,90 @@
+.signoutmodalcard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    height: 530px;
+    width: 450px;
+    padding: 35px;
+    border-radius: 20px;
+}
+
+.Close-modal {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.Close-modal img {
+    filter: brightness(0) invert(0.5);
+}
+
+.Close-modal img:hover {
+    filter: brightness(0) invert(0);
+}
+
+.logoutlogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #000;
+    height: 50px;
+    width: 50px;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .3);
+}
+
+.dash {
+    border: 1px solid black;
+    width: 40px;
+    margin-bottom: 32px;
+}
+
+.Signouttxt {
+    font-size: 30px;
+    margin-bottom: 16px;
+}
+
+.signoutpara {
+    color: grey;
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 40px;
+}
+
+.signoutbtns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 14px;
+}
+
+.signoutbtn {
+    width: 100%;
+    height: 56px;
+    padding: 4px;
+    background-color: aqua;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.signoutclick {
+    color: #fff;
+    background-color: #000;
+}
+
+.cancel {
+    border: 1px solid rgb(219, 219, 219);
+    background-color: #fff;
+}
+
+.cancel:hover {
+    border: 1px solid rgb(186, 186, 186);
+    background-color: #fafafa;
+}
+
+.signoutbtn:hover{
+    transform: scale(1.03);
+}

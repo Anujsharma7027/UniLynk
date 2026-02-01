@@ -166,6 +166,13 @@ header {
     text-align: left;
 }
 
+.dashbutton.active{
+    background-color: #e5e9ec;
+}
+.dashbutton.active:hover{
+    background-color: #e5e9ec;
+}
+
 .dashbutton img {
     width: 20px;
     height: 20px;
@@ -173,12 +180,19 @@ header {
 }
 
 .dashbutton:hover {
-    background-color: rgb(243, 243, 243);
+    background-color: #f5f8fa;
 }
 
 .gethelp {
     color: red;
     background-color: #fff2f2;
+}
+
+.gethelp.active{
+    background-color: #ffd9d9;
+}
+.gethelp.active:hover{
+    background-color: #ffd9d9;
 }
 
 .gethelp:hover {
@@ -191,6 +205,10 @@ header {
 
 }
 .signoutb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
     width: 240px;
     background-color: rgb(235, 90, 90);
     color: #ffffff;
@@ -224,7 +242,7 @@ header {
 .settings2 {
     width: 30px;
     height: 30px;
-  
+    border-radius: 8px;
 }
 
 .settings2:hover {
