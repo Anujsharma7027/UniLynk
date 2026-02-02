@@ -23,6 +23,10 @@
     filter: brightness(0) invert(0);
 }
 
+.unilynk{
+    color: #000;
+}
+
 .logoutlogo {
     display: flex;
     justify-content: center;
