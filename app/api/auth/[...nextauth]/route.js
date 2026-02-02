@@ -3,6 +3,9 @@ import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { connectDB } from "@/lib/mongodb";
 import User from "@/models/user";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
+
 
 export const authOptions = {
   trustHost: true,
@@ -16,6 +19,37 @@ export const authOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
+
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        await connectDB();
+
+        const email = credentials.email.toLowerCase().trim();
+        const user = await User.findOne({ email });
+
+        if (!user) throw new Error("User not found");
+        if (!user.password) throw new Error("No password set");
+
+        const isValid = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
+
+        if (!isValid) throw new Error("Wrong password");
+
+        return {
+          id: user._id.toString(),
+          email: user.email,
+          name: user.name || "",
+        };
+      },
+    }),
+
   ],
 
   secret: process.env.NEXTAUTH_SECRET,
@@ -31,13 +65,15 @@ export const authOptions = {
 
       if (!user?.email) return false;
 
+      const email = user.email.toLowerCase();
+
       await User.findOneAndUpdate(
-        { email: user.email },
+        { email },
         {
-          email: user.email,
-          name: user.name,
-          image: user.image,
-          provider: account?.provider,
+          email,
+          name: user.name || "",
+          image: user.image || "",
+          provider: account?.provider || "credentials",
         },
         { upsert: true, new: true }
       );
@@ -47,14 +83,9 @@ export const authOptions = {
 
     // 2️⃣ Decide WHERE to redirect
     async redirect({ baseUrl }) {
-      try {
-        await connectDB();
-
-        return `${baseUrl}/redirect-handler`;
-      } catch {
-        return baseUrl;
-      }
+      return `${baseUrl}/redirect-handler`;
     },
+
 
     async jwt({ token, user }) {
       if (user) {
@@ -68,8 +99,8 @@ export const authOptions = {
     async session({ session, token }) {
       if (session.user) {
         session.user.email = token.email;
-      session.user.name = token.name;
-      session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.id = token.id;
       }
       return session;
     },

@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import "./modal.css";
+import { signIn } from "next-auth/react";
+
 
 const Modal = ({ onClose, email }) => {
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const modalRef = useRef(null);
   const inputRefs = useRef([]);
@@ -14,9 +14,8 @@ const Modal = ({ onClose, email }) => {
   useEffect(() => {
     inputRefs.current[0]?.focus();
   }, []);
-
 const verifyOtp = async () => {
-  const otp = inputRefs.current.map(i => i.value).join("");
+  const otp = inputRefs.current.map(i => i?.value).join("");
 
   if (otp.length !== 6) {
     alert("Enter complete OTP");
@@ -25,6 +24,7 @@ const verifyOtp = async () => {
 
   setLoading(true);
 
+  // 1️⃣ VERIFY OTP
   const res = await fetch("/api/auth/verify-otp", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -43,10 +43,31 @@ const verifyOtp = async () => {
     return;
   }
 
-  // OTP VERIFIED → REGISTER USER
-  await registerUser();
-};
+  // 2️⃣ REGISTER USER (CREATE IN DB)
+  const registerRes = await fetch("/api/auth/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email,
+      password: localStorage.getItem("signup_password"),
+    }),
+  });
 
+  const registerData = await registerRes.json();
+
+  if (!registerRes.ok) {
+    setLoading(false);
+    alert(registerData.error);
+    return;
+  }
+
+  // 3️⃣ LOGIN USER (CREATE SESSION)
+  await signIn("credentials", {
+    email,
+    password: localStorage.getItem("signup_password"),
+    callbackUrl: "/redirect-handler",
+  });
+};
 
 
   const closeModal = (e) => {
@@ -89,31 +110,6 @@ const verifyOtp = async () => {
     });
     inputRefs.current[data.length - 1]?.focus();
   };
-
-
-const registerUser = async () => {
-  const res = await fetch("/api/auth/register", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      email,
-      password: localStorage.getItem("signup_password"),
-    }),
-  });
-
-  const data = await res.json();
-
-  if (!res.ok) {
-    alert(data.error);
-    return;
-  }
-
-  localStorage.removeItem("signup_password");
-  router.push("/UserinfoForm");
-};
-
-
-
 
 
 
