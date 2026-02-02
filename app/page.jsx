@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 
 
 export default function Home() {
-  
+
 
   return (
     <>
@@ -56,7 +56,7 @@ export default function Home() {
 
           <Loginbtn></Loginbtn>
 
-         
+
         </div>
       </div>
 
@@ -175,10 +175,10 @@ export default function Home() {
               <div className="footlogo"><img id="LOGO" src="ULynk.svg" alt="" />Unilynk</div>
               <p className="footpara">The premium platform for college social networking, club management, and student support.</p>
               <div className="social">
-                <img src="./social/gmail.svg" alt="" />
-                <img src="./social/instagram.svg" alt="" />
-                <img src="./social/X.svg" alt="" />
-                <img src="./social/github.svg" alt="" />
+                <button className='applogo' onClick={() => {window.location.href = "mailto:pawankumarr16108@gmail.com";}} ><img src="./social/gmail.svg" alt="Gmail" /></button>
+                <button className='applogo'><img src="./social/instagram.svg" alt="Instagram" /></button>
+                <button className='applogo'><img src="./social/X.svg" alt="X" /></button>
+                <button className='applogo'><img src="./social/github.svg" alt="GitHub" /></button>
               </div>
             </div>
             <div className="product">

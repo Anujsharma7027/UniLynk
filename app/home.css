@@ -822,7 +822,7 @@ a:focus-visible {
   margin-top: 5px;
 }
 
-.social img{
+.applogo img{
   height: 40px;
   width: auto;
   padding: 5px;
@@ -832,7 +832,7 @@ a:focus-visible {
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.social img:hover{
+.applogo img:hover{
   background-color: #dddddd;
   transform: scale(1.07);
 }

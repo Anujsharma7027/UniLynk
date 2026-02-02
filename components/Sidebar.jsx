@@ -72,7 +72,7 @@ const Sidebar = () => {
                       <img src="/Profilepic.png" alt="Profile picture" />
                     </div>
                     <div className="profinfo">
-                      <h2 className="username">pawan Kumar</h2>
+                      <h2 className="username">Pawan Kumar</h2>
                       <div className="branch">Production and Industrial Engineering</div>
                       <div className="year">1st Year</div>
                     </div>
