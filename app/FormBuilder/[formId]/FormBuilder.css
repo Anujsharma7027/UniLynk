@@ -1,0 +1,601 @@
+.form-builder-container {
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+.form-builder-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.form-builder-header-inner {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.form-builder-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+
+.form-builder-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.btn-back {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: inherit;
+  text-decoration: none;
+}
+
+.btn-back svg {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-back:hover {
+  background-color: #f3f4f6;
+  border-color: #000000;
+}
+
+.form-title-header-input {
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: 300px;
+  padding: 8px 0;
+}
+
+.btn-preview-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.btn-preview-mode svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-preview-mode:hover {
+  background-color: #1f2937;
+}
+
+.form-builder-main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.form-header-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+.form-header-accent {
+  border-top: 8px solid #000000;
+  margin: -32px -32px 32px -32px;
+  border-radius: 8px 8px 0 0;
+}
+
+.form-title-input {
+  font-size: 30px;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 16px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.form-title-input:focus {
+  border-bottom-color: #000000;
+}
+
+.form-description-input {
+  font-size: 14px;
+  color: #4b5563;
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 0;
+  resize: none;
+  margin-bottom: 16px;
+  font-family: inherit;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.form-description-input:focus {
+  border-bottom-color: #d1d5db;
+}
+
+.form-genre-section {
+  margin-bottom: 16px;
+}
+
+.form-genre-label-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.form-genre-label-wrapper svg {
+  width: 16px;
+  height: 16px;
+  color: #6b7280;
+}
+
+.form-genre-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.form-genre-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-size: 14px;
+  background-color: #ffffff;
+  font-family: inherit;
+}
+
+.form-genre-select:hover,
+.form-genre-select:focus {
+  border-color: #000000;
+}
+
+.event-details-section {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.event-details-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 16px 0;
+}
+
+.event-details-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .event-details-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.event-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.event-field-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.event-field-label svg {
+  width: 16px;
+  height: 16px;
+}
+
+.date-picker-button {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  font-size: 14px;
+  font-family: inherit;
+  text-align: left;
+  outline: none;
+}
+
+.date-picker-button:hover,
+.date-picker-button:focus {
+  border-color: #000000;
+}
+
+.date-picker-button svg {
+  width: 16px;
+  height: 16px;
+  color: #6b7280;
+}
+
+.date-picker-value {
+  color: #000000;
+}
+
+.date-picker-placeholder {
+  color: #9ca3af;
+}
+
+.time-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.time-input:hover,
+.time-input:focus {
+  border-color: #000000;
+}
+
+.location-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.location-input:hover,
+.location-input:focus {
+  border-color: #000000;
+}
+
+.question-item {
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.question-header {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+
+.question-move-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.btn-move {
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-move svg {
+  width: 16px;
+  height: 16px;
+  color: #6b7280;
+}
+
+.btn-move:hover:not(:disabled) {
+  background-color: #f3f4f6;
+  border-color: #000000;
+}
+
+.btn-move:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.question-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.question-input {
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+
+.question-input:focus {
+  border-bottom-color: #000000;
+}
+
+.question-description-input {
+  font-size: 14px;
+  color: #6b7280;
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+
+.question-description-input:focus {
+  border-bottom-color: #d1d5db;
+}
+
+.question-type-select {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-size: 14px;
+  background-color: #ffffff;
+  cursor: pointer;
+  min-width: 180px;
+  font-family: inherit;
+}
+
+.question-type-select:hover,
+.question-type-select:focus {
+  border-color: #000000;
+}
+
+.question-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.question-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.question-option-icon {
+  width: 20px;
+  height: 20px;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.question-option-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.question-option-input:focus {
+  border-color: #000000;
+}
+
+.btn-remove-option {
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #ef4444;
+}
+
+.btn-remove-option svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-remove-option:hover {
+  background-color: #fee2e2;
+}
+
+.btn-add-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: transparent;
+  color: #000000;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-add-option svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-add-option:hover {
+  background-color: #f3f4f6;
+  border-color: #000000;
+}
+
+.question-preview {
+  margin-bottom: 16px;
+}
+
+.preview-input-short,
+.preview-input-email,
+.preview-input-phone,
+.preview-input-date,
+.preview-input-time {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  background-color: #f9fafb;
+  cursor: not-allowed;
+  color: #9ca3af;
+  font-family: inherit;
+}
+
+.preview-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  background-color: #f9fafb;
+  cursor: not-allowed;
+  color: #9ca3af;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.question-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.btn-delete-question {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: transparent;
+  color: #ef4444;
+  border: 1px solid #fee2e2;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-delete-question svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-delete-question:hover {
+  background-color: #fee2e2;
+  border-color: #ef4444;
+}
+
+.required-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.required-toggle-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.required-toggle input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #000000;
+}
+
+.btn-add-question {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px dashed #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.btn-add-question svg {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-add-question:hover {
+  background-color: #f9fafb;
+  border-color: #000000;
+}
