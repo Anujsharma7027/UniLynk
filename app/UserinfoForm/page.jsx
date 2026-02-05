@@ -10,8 +10,8 @@ export default function page() {
   const [branch, setBranch] = useState("");
   const [year, setYear] = useState("");
   const [skill, setSkill] = useState("");
- const [uploading, setUploading] = useState(false);
-const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [user, setUser] = useState(null);
 
   const handleAvatarClick = () => {
@@ -45,11 +45,12 @@ const [saving, setSaving] = useState(false);
         ...(prev || {}),
         img: data.url,
       }));
+      
     } catch (err) {
       console.error("Upload failed:", err);
       alert("Image upload failed");
     } finally {
-     setUploading(false);
+      setUploading(false);
     }
   };
 
@@ -62,7 +63,7 @@ const [saving, setSaving] = useState(false);
     }
 
     try {
-     setSaving(true);
+      setSaving(true);
 
       const res = await fetch("/api/user/update", {
         method: "POST",
@@ -95,23 +96,23 @@ const [saving, setSaving] = useState(false);
   };
 
   useEffect(() => {
-  const fetchUser = async () => {
-    const res = await fetch("/api/user/me");
-    if (!res.ok) return;
+    const fetchUser = async () => {
+      const res = await fetch("/api/user/me");
+      if (!res.ok) return;
 
-    const data = await res.json();
+      const data = await res.json();
 
-    setUser(data);
+      setUser(data);
 
-    // 🔥 PREFILL FORM VALUES
-    setName(data.name || "");
-    setBranch(data.branch || "");
-    setYear(data.year || "");
-    setSkill(data.skill || "");
-  };
+      // 🔥 PREFILL FORM VALUES
+      setName(data.name || "");
+      setBranch(data.branch || "");
+      setYear(data.year || "");
+      setSkill(data.skill || "");
+    };
 
-  fetchUser();
-}, []);
+    fetchUser();
+  }, []);
 
   return (
 
@@ -121,7 +122,12 @@ const [saving, setSaving] = useState(false);
           <div className="userprofilepic">
             <div className={`defaultimg ${user?.img ? "has-img" : "no-img"}`} onClick={handleAvatarClick}>
               <img
-                src={user?.img || "https://res.cloudinary.com/dpzqayckn/image/upload/v1770035267/default-avatar-profile-icon-_d6zcya.avif"}
+                key={user?.img} // 👈 forces re-render
+                src={
+                  user?.img
+                    ? `${user.img}?t=${Date.now()}`
+                    : "https://res.cloudinary.com/dpzqayckn/image/upload/v1770035267/default-avatar-profile-icon-_d6zcya.avif"
+                }
                 alt="profile"
               />
             </div>

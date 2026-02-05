@@ -16,8 +16,8 @@ export async function GET() {
 
   const user = await User.findOne(
     { email: session.user.email },
-    { img: 1, name: 1 }
-  );
+    { img: 1, name: 1, branch: 1, year: 1, skill: 1 }
+  ).lean();
 
   // ALWAYS return an object
   return NextResponse.json(user || {});

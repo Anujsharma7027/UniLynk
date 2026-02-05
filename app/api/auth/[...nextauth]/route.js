@@ -72,7 +72,7 @@ export const authOptions = {
         {
           email,
           name: user.name || "",
-          image: user.image || "",
+          img: user.image || "",
           provider: account?.provider || "credentials",
         },
         { upsert: true, new: true }
