@@ -16,7 +16,7 @@ export default function Home() {
           <div className="logo"><img id="LOGO" src="ULynk.svg" alt="" /></div>
 
           <ul className="navlinks">
-            <Link href="./UserinfoForm"><li className="feature navlink"> Feature</li></Link>
+            <Link href="./analytics"><li className="feature navlink"> Feature</li></Link>
             <Link href="./dashboard"><li className="about navlink">About</li></Link>
             <Link href="./UserinfoForm"><li className="support navlink">Support</li></Link>
             <li className="contactus navlink">Contact Us</li>

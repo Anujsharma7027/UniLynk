@@ -121,8 +121,7 @@
     padding: 0 12px;
     border-radius: 8px;
     background-color: #f2f6fa;
-    color: #000;
-    /* color: rgb(89, 89, 89); */
+    color: rgb(89, 89, 89);
 }
 
 .lastpost {
