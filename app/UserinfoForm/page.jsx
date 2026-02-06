@@ -1,61 +1,118 @@
 "use client";
-
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import "./UserinfoForm.css";
 
 export default function page() {
   const router = useRouter();
-
+  const fileInputRef = useRef(null);
   const [name, setName] = useState("");
   const [branch, setBranch] = useState("");
   const [year, setYear] = useState("");
   const [skill, setSkill] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [user, setUser] = useState(null);
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleAvatarClick = () => {
+    fileInputRef.current?.click();
+  };
 
-  if (!name || !branch || !year) {
-    alert("Please fill all required fields");
-    return;
-  }
+  const handleUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  try {
-    setLoading(true);
-
-    const res = await fetch("/api/user/update", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include", // REQUIRED for NextAuth
-      body: JSON.stringify({ name, branch, year, skill }),
-    });
-
-    const data = await res.json();
-
-    if (res.status === 401) {
-      alert("Session expired. Please sign in again.");
-      router.push("/");
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Max size is 5MB");
       return;
     }
 
-    if (!res.ok) {
-      throw new Error(data.error || "Profile update failed");
+    setUploading(true);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("/api/user/upload-image", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      // 🔥 UPDATE USER STATE INSTEAD OF RELOADING
+      setUser((prev) => ({
+        ...(prev || {}),
+        img: data.url,
+      }));
+      
+    } catch (err) {
+      console.error("Upload failed:", err);
+      alert("Image upload failed");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!name || !branch || !year) {
+      alert("Please fill all required fields");
+      return;
     }
 
-    router.push("/dashboard");
-  } catch (err) {
-    console.error("Submit error:", err);
-    alert(err.message || "Something went wrong");
-  } finally {
-    setLoading(false);
-  }
-};
+    try {
+      setSaving(true);
 
+      const res = await fetch("/api/user/update", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // REQUIRED for NextAuth
+        body: JSON.stringify({ name, branch, year, skill }),
+      });
 
+      const data = await res.json();
 
+      if (res.status === 401) {
+        alert("Session expired. Please sign in again.");
+        router.push("/");
+        return;
+      }
+
+      if (!res.ok) {
+        throw new Error(data.error || "Profile update failed");
+      }
+
+      router.push("/dashboard");
+    } catch (err) {
+      console.error("Submit error:", err);
+      alert(err.message || "Something went wrong");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await fetch("/api/user/me");
+      if (!res.ok) return;
+
+      const data = await res.json();
+
+      setUser(data);
+
+      // 🔥 PREFILL FORM VALUES
+      setName(data.name || "");
+      setBranch(data.branch || "");
+      setYear(data.year || "");
+      setSkill(data.skill || "");
+    };
+
+    fetchUser();
+  }, []);
 
   return (
 
@@ -63,13 +120,28 @@ const handleSubmit = async (e) => {
       <form className='userdetailcard' onSubmit={handleSubmit}>
         <div className="detailhead">
           <div className="userprofilepic">
-            <div className="defaultimg"><img src="./Userprofile/Defaultprofilepic.svg" alt="" /></div>
-
-            {/*===================== Uncomment the image enter the src ===================*/}
-
-            {/* <img src="" alt="" className="userimg" /> */}
+            <div className={`defaultimg ${user?.img ? "has-img" : "no-img"}`} onClick={handleAvatarClick}>
+              <img
+                key={user?.img} // 👈 forces re-render
+                src={
+                  user?.img
+                    ? `${user.img}?t=${Date.now()}`
+                    : "https://res.cloudinary.com/dpzqayckn/image/upload/v1770035267/default-avatar-profile-icon-_d6zcya.avif"
+                }
+                alt="profile"
+              />
+            </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleUpload}
+              disabled={uploading}
+              style={{ display: "none" }}
+            />
           </div>
-          <div className="plus">+</div>
+
+          <div className="plus" onClick={handleAvatarClick}>+</div>
           <div className="headtext">
             <div className="unilynk">Unilynk</div>
             <div className="studentreg">Student Registration</div>
@@ -77,7 +149,7 @@ const handleSubmit = async (e) => {
         </div>
         <div className="detailmain">
           <div className="name">
-            <div className="detailslabel"> <img className='detailsicon' src="./Userprofile/name.svg" alt="" />NAME</div>
+            <div className="detailslabel"> <img className='detailsicon' src="/Userprofile/name.svg" alt="" />NAME</div>
             <input className='nameinput' type="text"
               value={name}
               onChange={(e) => setName(e.target.value)} />
@@ -85,7 +157,7 @@ const handleSubmit = async (e) => {
 
           <div className="branch-year">
             <div className="branch">
-              <div className="detailslabel"><img className='detailsicon' src="./Userprofile/Suitcase.svg" alt="" />BRANCH</div>
+              <div className="detailslabel"><img className='detailsicon' src="/Userprofile/Suitcase.svg" alt="" />BRANCH</div>
               <select required className='branch-yearinput' name="branch" value={branch}
                 onChange={(e) => setBranch(e.target.value)}>
                 <option value="Select">Select</option>
@@ -107,7 +179,7 @@ const handleSubmit = async (e) => {
               </select>
             </div>
             <div className="year">
-              <div className="detailslabel"><img className='detailsicon' src="./Userprofile/book.svg" alt="" />YEAR</div>
+              <div className="detailslabel"><img className='detailsicon' src="/Userprofile/book.svg" alt="" />YEAR</div>
               <select required className='branch-yearinput' name="year" id="" value={year} onChange={(e) => setYear(e.target.value)}>
                 <option value="select">Select</option>
                 <option value="1">First</option>
@@ -120,12 +192,12 @@ const handleSubmit = async (e) => {
           </div>
 
           <div className="skills">
-            <div className="detailslabel"> <img className='detailsicon' src="./Userprofile/name.svg" alt="" />SKILLS</div>
+            <div className="detailslabel"> <img className='detailsicon' src="/Userprofile/name.svg" alt="" />SKILLS</div>
             <textarea className='skillsinput' placeholder='JavaScript, Python, React...' value={skill} onChange={(e) => setSkill(e.target.value)} ></textarea>
           </div>
 
-<button id="submitusr" type="submit" disabled={loading}>
-            {loading ? "Saving..." : "SUBMIT PROFILE"}
+          <button id="submitusr" type="submit" disabled={saving}>
+            {saving ? "Saving..." : "SUBMIT PROFILE"}
           </button>
 
           <hr className='mt-6 mb-2' />
@@ -139,4 +211,4 @@ const handleSubmit = async (e) => {
       </form>
     </div>
   )
-}
+} 

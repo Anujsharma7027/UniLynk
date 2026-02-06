@@ -6,11 +6,16 @@
     background-color: #f5f7fa;
 }
 
+.userprofilepic input[type="file"]{
+    display: none;
+}
 .userdetailcard{
     height: 615px;
     width: 800px;
     border-radius: 20px;
-    background-color: #fff;
+    background-color: #fff;.userprofilepic input[type="file"]{
+    display: none;
+}
     overflow: hidden;
 }
 
@@ -25,12 +30,16 @@
     height: 80px;
     width: 80px;
     bottom: 43px;
-    border-radius: 200px;
+    border-radius: 50%;
+
 }
 
 .defaultimg img{
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 50%;
+     display: block; 
 }
 
 .defaultimg{
@@ -39,11 +48,12 @@
     width: 100%;
     object-fit: cover;
     border-radius: 999px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+  object-position: center;
 
+}
+.defaultimg.has-img{
+    background-color: transparent; 
+}
 .userprofilepic .userimg{
     height: 100%;
     width: 100%;
@@ -194,5 +204,16 @@ input:focus{
 }
 
 .unilynkt{
+    color: black;
+}
+.profileimg{
+
+     height: 80px;
+    width: 80px;
+    bottom: 43px;
+    border-radius: 200px
+}
+
+.profileinput{
     color: black;
 }

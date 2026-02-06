@@ -72,7 +72,7 @@ export const authOptions = {
         {
           email,
           name: user.name || "",
-          image: user.image || "",
+          img: user.image || "",
           provider: account?.provider || "credentials",
         },
         { upsert: true, new: true }
@@ -91,6 +91,7 @@ export const authOptions = {
       if (user) {
         token.email = user.email;
         token.name = user.name;
+        token.image = user.image;
         token.id = user.id || token.sub;
       }
       return token;
@@ -100,6 +101,7 @@ export const authOptions = {
       if (session.user) {
         session.user.email = token.email;
         session.user.name = token.name;
+        session.user.image = token.image;
         session.user.id = token.id;
       }
       return session;
