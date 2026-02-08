@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
+import { getDraft, saveDraft } from "@/lib/drafts";
 import {
   ArrowLeft,
   Plus,
@@ -21,6 +22,7 @@ import {
   MapPin,
   ChevronUp,
   ChevronDown as ChevronDownIcon,
+
   Tag,
 } from 'lucide-react';
 import { format } from 'date-fns';
@@ -40,11 +42,12 @@ const questionTypes = [
 
 export default function FormBuilder() {
   const params = useParams();
+  const router = useRouter();
   // FIXED: Added mounted state to prevent hydration errors
   const [mounted, setMounted] = useState(false);
   // FIXED: Initialize with completely static structure to prevent hydration mismatch
   const [formData, setFormData] = useState({
-    id: '',
+    _id: '',
     title: "Untitled Form",
     description: "",
     date: "",
@@ -58,79 +61,140 @@ export default function FormBuilder() {
     setMounted(true);
   }, []);
 
+
   // FIXED: Load form data only after component is mounted
   useEffect(() => {
     if (!mounted || !params?.formId) return;
 
-    const formId = params.formId;
-    const saved = localStorage.getItem(`unilynk-form-${formId}`);
-    
-    if (saved) {
+    const loadForm = async () => {
       try {
-        setFormData(JSON.parse(saved));
-      } catch (error) {
-        console.error('Error parsing saved form:', error);
-        // If there's an error, initialize with default form
-        const initialForm = {
-          id: formId,
+
+        // ⭐ Draft Case
+        if (params?.formId?.startsWith("draft_")) {
+          const draft = getDraft(params.formId);
+
+          if (draft) {
+            setFormData(draft);
+            return;
+          }
+
+          // ⭐ Draft missing → recreate
+          const newDraft = {
+            _id: params.formId,
+            title: "Untitled Form",
+            description: "",
+            questions: [],
+            createdAt: new Date().toISOString(),
+          };
+
+          saveDraft(newDraft);
+          setFormData(newDraft);
+          return;
+        }
+
+        // ⭐ Mongo Case
+        const res = await fetch(`/api/forms/${params.formId}`);
+
+        if (res.ok) {
+          const data = await res.json();
+          setFormData(data);
+          return;
+        }
+
+        // ⭐ Mongo failed → fallback draft
+        const fallbackDraft = {
+          _id: `draft_${Date.now()}`,
           title: "Untitled Form",
           description: "",
-          date: "",
-          time: "",
-          location: "",
           questions: [],
+          createdAt: new Date().toISOString(),
         };
-        setFormData(initialForm);
-        saveForm(initialForm);
+
+        saveDraft(fallbackDraft);
+        setFormData(fallbackDraft);
+        router.replace(`/FormBuilder/${fallbackDraft._id}`);
+
+      } catch (error) {
+        console.error(error);
       }
-    } else {
-      const initialForm = {
-        id: formId,
-        title: "Untitled Form",
-        description: "",
-        date: "",
-        time: "",
-        location: "",
-        questions: [],
-      };
-      setFormData(initialForm);
-      saveForm(initialForm);
-    }
-  }, [mounted, params?.formId]);
-
-  const saveForm = (data) => {
-    if (typeof window === 'undefined') return; // FIXED: Check for browser environment
-    
-    localStorage.setItem(`unilynk-form-${data.id}`, JSON.stringify(data));
-
-    // Update forms list
-    const formsListStr = localStorage.getItem('unilynk-forms');
-    const formsList = formsListStr ? JSON.parse(formsListStr) : [];
-    const existingIndex = formsList.findIndex((f) => f.id === data.id);
-
-    const formSummary = {
-      id: data.id,
-      title: data.title,
-      description: data.description,
-      createdAt: existingIndex >= 0 ? formsList[existingIndex].createdAt : new Date().toISOString(),
-      questions: data.questions.length,
     };
 
-    if (existingIndex >= 0) {
-      formsList[existingIndex] = formSummary;
-    } else {
-      formsList.unshift(formSummary);
-    }
 
-    localStorage.setItem('unilynk-forms', JSON.stringify(formsList));
+
+    loadForm();
+
+  }, [mounted, params?.formId]);
+
+
+  const publishForm = async () => {
+    if (!formData) return;
+
+    try {
+      let payload = {
+        ...formData,
+        isPublished: true
+      };
+
+      // Remove draft id → Mongo creates real _id
+      if (payload._id?.startsWith("draft_")) {
+        delete payload._id;
+      }
+
+      const res = await fetch("/api/forms/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) throw new Error("Publish failed");
+
+      // Remove local draft after publish
+      if (formData._id?.startsWith("draft_")) {
+        localStorage.removeItem(`draft-${formData._id}`);
+      }
+
+      router.push("/dashboard/events/yourform");
+
+    } catch (err) {
+      console.error(err);
+    }
   };
+
 
   const updateForm = (updates) => {
     const newData = { ...formData, ...updates };
-    setFormData(newData);
-    saveForm(newData);
-  };
 
+    setFormData(newData);
+
+    // ✅ Save Draft Locally
+    if (newData?._id?.startsWith("draft_")) {
+      saveDraft(newData);
+    }
+  };
+const saveChanges = async () => {
+  if (!formData?._id) return;
+
+  try {
+    const { _id, ...safeData } = formData;
+
+    const res = await fetch("/api/forms/update", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        formId: _id,
+        formData: safeData
+      })
+    });
+
+    if (!res.ok) throw new Error("Update failed");
+
+    // ✅ Redirect after saving
+    router.push("/dashboard/events/yourform");
+
+  } catch (err) {
+    console.error(err);
+  }
+};
   const addQuestion = () => {
     const newQuestion = {
       id: Date.now().toString(),
@@ -219,7 +283,9 @@ export default function FormBuilder() {
   }
 
   // FIXED: Get formId safely after mounted
-  const formId = params?.formId || formData.id;
+  const formId = formData?._id;
+  console.log("Preview ID:", formData._id);
+
 
   return (
     <div className="form-builder-container">
@@ -241,13 +307,27 @@ export default function FormBuilder() {
               />
             </div>
 
-            <Link
-              href={`/FormPreview/${formId}`}
-              className="btn-preview-mode"
-            >
-              <Eye />
-              <span>Preview</span>
-            </Link>
+
+
+            <div style={{ display: "flex", gap: "10px" }}>
+
+              <button
+                onClick={formData.isPublished ? saveChanges : publishForm}
+                className="btn-preview-mode"
+                type="button"
+              >
+                {formData.isPublished ? "Save Changes" : "Publish"}
+              </button>
+              <button
+                disabled={!formData?._id}
+                onClick={() => router.push(`/FormPreview/${formData._id}`)}
+                className="btn-preview-mode"
+                type="button"
+              >
+                <Eye />
+                <span>Preview</span>
+              </button>
+            </div>
           </div>
         </div>
       </header>

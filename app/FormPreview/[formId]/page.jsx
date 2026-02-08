@@ -6,49 +6,138 @@ import { useParams } from 'next/navigation';
 import { ArrowLeft, CheckCircle2, Calendar as CalendarIcon, Clock, MapPin, Tag } from 'lucide-react';
 import { format } from 'date-fns';
 import './FormPreview.css';
+import { getDraft } from "@/lib/drafts";
 
 export default function FormPreview() {
   const { formId } = useParams();
+  const [safeFormId, setSafeFormId] = useState(null);
   const [formData, setFormData] = useState(null);
   const [responses, setResponses] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [alreadyApplied, setAlreadyApplied] = useState(false);
 
   useEffect(() => {
-    if (formId) {
-      const savedForm = localStorage.getItem(`unilynk-form-${formId}`);
-      if (savedForm) {
-        setFormData(JSON.parse(savedForm));
-      }
+    if (formId && formId !== "undefined") {
+      setSafeFormId(formId);
     }
   }, [formId]);
 
-  const handleSubmit = (e) => {
+
+  // LOAD FORM
+  useEffect(() => {
+    if (!safeFormId) return;
+
+    setLoading(true);
+
+    // Draft check
+    if (safeFormId.startsWith("draft_")) {
+      const draft = getDraft(safeFormId);
+
+      if (draft) {
+        setFormData(draft);
+        setLoading(false);
+        return;
+      }
+    }
+
+    // Mongo fetch
+    fetch(`/api/forms/${safeFormId}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Form not found");
+        return res.json();
+      })
+      .then((data) => {
+        setFormData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setFormData(null);
+        setLoading(false);
+      });
+
+  }, [safeFormId]);
+
+
+  // ⭐ CHECK IF USER ALREADY APPLIED
+  useEffect(() => {
+    if (!safeFormId) return;
+
+    fetch(`/api/forms/check-applied?formId=${safeFormId}`)
+      .then(res => res.json())
+      .then(data => setAlreadyApplied(data.applied));
+
+  }, [safeFormId]);
+
+
+
+  const handleSubmit = async (e) => {
+    if (alreadyApplied) return;
+    if (!safeFormId) return;
     e.preventDefault();
-    
-    // Validate required fields
-    const missingRequired = formData?.questions.filter(
-      q => q.required && !responses[q.id]
+    if (safeFormId.startsWith("draft_")) {
+      alert("Draft forms cannot be submitted");
+      return;
+    }
+    const missingRequired = (formData?.questions || []).filter(
+
+
+      (q) => q.required && !responses[q.id]
     );
 
     if (missingRequired && missingRequired.length > 0) {
-      alert('Please fill in all required fields');
+      alert("Please fill in all required fields");
       return;
     }
 
-    setSubmitted(true);
+    try {
+      const res = await fetch("/api/forms/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formId: safeFormId,
+
+          answers: responses,
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        console.error("Submit Error:", err);
+        alert(err.error || "Submission failed");
+        return;
+      }
+
+
+      setSubmitted(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleResponse = (questionId, value) => {
-    setResponses({ ...responses, [questionId]: value });
+    setResponses((prev) => ({
+      ...prev,
+      [questionId]: value
+    }));
   };
 
   const handleCheckboxChange = (questionId, option, checked) => {
-    const current = responses[questionId] || [];
+    const current = responses[questionId] ?? [];
     const updated = checked
       ? [...current, option]
       : current.filter((o) => o !== option);
     handleResponse(questionId, updated);
   };
+
+  if (loading) {
+    return (
+      <div className="not-found-container">
+        <p className="not-found-text">Loading form...</p>
+      </div>
+    );
+  }
 
   if (!formData) {
     return (
@@ -66,12 +155,12 @@ export default function FormPreview() {
             <div className="success-icon">
               <CheckCircle2 />
             </div>
-            
+
             <h2 className="success-title">Response Submitted</h2>
             <p className="success-text">
               Thank you for completing the form. Your response has been recorded.
             </p>
-            <Link href="/dashboard/events/yourform" className="btn-back-home">
+            <Link href="/dashboard/events/events" className="btn-back-home">
               Back to Forms
             </Link>
           </div>
@@ -121,7 +210,8 @@ export default function FormPreview() {
                       </div>
                       <div className="event-detail-content">
                         <p className="event-detail-label">Date</p>
-                        <p className="event-detail-value">{format(new Date(formData.date), 'MMM d, yyyy')}</p>
+                        <p className="event-detail-value">{formData.date && format(new Date(formData.date), 'MMM d, yyyy')}
+                        </p>
                       </div>
                     </div>
                   )}
@@ -153,7 +243,7 @@ export default function FormPreview() {
           </div>
 
           {/* Questions */}
-          {formData.questions.map((question) => (
+          {(formData.questions || []).map((question) => (
             <div key={question.id} className="question-card">
               <div className="question-text-wrapper">
                 <h3 className="question-text">
@@ -290,8 +380,12 @@ export default function FormPreview() {
           ))}
 
           {/* Submit Button */}
-          <button type="submit" className="btn-submit">
-            Submit
+          <button
+            type="submit"
+            className="btn-submit"
+            disabled={alreadyApplied}
+          >
+            {alreadyApplied ? "Applied" : "Apply"}
           </button>
         </form>
       </main>

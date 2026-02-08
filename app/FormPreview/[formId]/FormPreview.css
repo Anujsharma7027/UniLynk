@@ -22,6 +22,13 @@
   margin: 0 auto;
   padding: 32px 24px;
 }
+.draft-banner {
+  background: #fde68a;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+}
 
 .form-preview-header-card {
   background-color: #ffffff;
