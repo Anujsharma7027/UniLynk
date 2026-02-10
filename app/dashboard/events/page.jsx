@@ -45,22 +45,25 @@ const Eventspage = () => {
 
   return (
     <div className="my-eventsbody">
-      <div className="eventscontainercont">
-        <div className="eventscontainer">
+      
 
           {events.length === 0 && (
-            <div className="empty-state">
-              <div className="empty-illustration">
-                <div className="circle-bg">
-                  <div className="icon-center"><img src="/myclubs/calender.svg" alt="" /></div>
+            
+              <div className="empty-state">
+                <div className="empty-illustration">
+                  <div className="circle-bg">
+                    <div className="icon-center"><img src="/myclubs/calender.svg" alt="" /></div>
+                  </div>
                 </div>
+
+                <h2>No Events Right Now</h2>
+                <p>The event calendar is currently clear. Check out our vibrant clubs and communities to stay connected with campus life.</p>
+
               </div>
-
-              <h2>No Events Right Now</h2>
-              <p>The event calendar is currently clear. Check out our vibrant clubs and communities to stay connected with campus life.</p>
-
-            </div>
+            
           )}
+          <div className="eventscontainercont">
+        <div className="eventscontainer">
 
           {events.map((event) => (
             <div className="event" key={event._id}>

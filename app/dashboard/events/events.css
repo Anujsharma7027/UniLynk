@@ -18,15 +18,23 @@ body {
     justify-content: center;
 }
 
-.eventscontainer {
-    max-width: 1070px;
+.emptystatecont{
+    width: 100%;
+    height: 100%;
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px 25px;
-    padding: 25px 0;
     justify-content: center;
     align-items: center;
-    background-color: #f5f8fa;
+}
+
+.eventscontainer {
+    margin: 0 auto;
+  width: 100%;
+  padding: 25px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 460px);
+  justify-content: center; 
+  gap: 25px 25px;
+  background-color: #f5f8fa;
 }
 
 .event {
@@ -98,7 +106,7 @@ body {
     justify-content: start;
     flex-direction: column;
     gap: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 33px;
 }
 
 .eventinfo li {
