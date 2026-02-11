@@ -112,22 +112,21 @@ header {
     justify-content: center;
 }
 
-.post button {
+.viewprofilebtn {
     width: 90%;
     background-color: grey;
     color: #ffffff;
     height: 40px;
     margin-top: 35px;
     border-radius: 23px;
-    transition: 0.3s;
+    transition: all .2s ease;
     border: none;
     cursor: pointer;
     font-weight: 500;
 }
 
-.post button:hover {
+.viewprofilebtn:hover {
     background-color: #111;
-    transform: scale(1.02);
 }
 
 .logo {

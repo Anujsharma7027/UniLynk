@@ -40,7 +40,7 @@ const [isNotify, setIsNotify] = useState(false)
             <li>Joined Sept 2025</li>
           </ul>
           <div className="post-time">
-            <div className="userpost">Member</div>
+            <div className="userpostcapsule">Member</div>
             <img src="/myclubs/pulse.svg" alt="pulse" />
             <div className="lastpost">Last post 3h ago</div>
           </div>

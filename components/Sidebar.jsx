@@ -77,7 +77,9 @@ const Sidebar = () => {
                       <div className="year">1st Year</div>
                     </div>
                     <div className="post">
-                      <button>View Profile</button>
+                     
+                      <button className='viewprofilebtn' onClick={() => window.location.href = "./Userprofile"}>View Profile</button>
+                      
                     </div>
                   </div>
                 </div>
