@@ -3,18 +3,23 @@ export const runtime = "nodejs";
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Form from "@/models/Form";
-
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 export async function DELETE(req, context) {
   try {
     await connectDB();
 
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.email) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
     const { id } = await context.params;
 
-    console.log("DELETE ID:", id);
-    console.log("DB:", Form.db.name);
-    console.log("COLLECTION:", Form.collection.name);
-
-    const deleted = await Form.findByIdAndDelete(id);
+    const deleted = await Form.findOneAndDelete({
+      _id: id,
+      createdBy: session.user.email.toLowerCase(),
+    });
 
     if (!deleted) {
       return NextResponse.json(

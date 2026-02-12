@@ -1,8 +1,9 @@
 .userinfoformbody {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1rem;
     background-color: #f5f7fa;
 }
 
@@ -11,8 +12,8 @@
 }
 
 .userdetailcard {
-    height: 615px;
-    width: 800px;
+     min-height: 615px;
+    width: min(800px, 100%);
     border-radius: 20px;
     background-color: #fff;
 
@@ -224,4 +225,29 @@ input:focus {
 
 .profileinput {
     color: black;
+}
+@media (max-width: 768px) {
+  .userinfoformbody {
+    align-items: flex-start;
+    padding: 1rem 0.75rem;
+  }
+
+  .userdetailcard {
+    min-height: auto;
+    border-radius: 14px;
+  }
+
+  .detailhead {
+    padding: 18px;
+  }
+
+  .branch-year {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .year,
+  .branch {
+    width: 100%;
+  }
 }

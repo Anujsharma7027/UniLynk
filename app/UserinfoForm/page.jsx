@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import "./UserinfoForm.css";
 
-export default function page() {
+export default function UserinfoPage() {
   const router = useRouter();
   const fileInputRef = useRef(null);
   const [name, setName] = useState("");

@@ -3,29 +3,21 @@ import Form from "@/models/Form";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-
-export async function POST(req) {
+export async function GET() {
   try {
     await connectDB();
- const session = await getServerSession(authOptions);
+
+    const session = await getServerSession(authOptions);
 
     if (!session?.user?.email) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const forms = await Form.find({
+      createdBy: session.user.email.toLowerCase(),
+    }).sort({ createdAt: -1 });
 
-
-    const data = await req.json();
-
-     const normalizedEmail = session.user.email.toLowerCase();
-
-    const payload = {
-      ...data,
-      createdBy: normalizedEmail,
-    };
-    
-     const form = await Form.create(payload);
-    return Response.json(form);
+    return Response.json(forms);
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }

@@ -3,9 +3,9 @@ import Form from "@/models/Form";
 export async function GET() {
   try {
     await connectDB();
-
-    const forms = await Form.find({ isPublished: true })
-.sort({ createdAt: -1 });
+const forms = await Form.find({
+      $or: [{ isPublic: true }, { isPublished: true }],
+    })
 
     return Response.json(forms);
   } catch (error) {

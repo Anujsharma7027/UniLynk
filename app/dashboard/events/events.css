@@ -235,257 +235,99 @@ body {
     text-align: center;
     margin: 0 auto 40px;
 }
+.forms-inline-alert {
+  margin: 16px auto 0;
+  max-width: 1070px;
+  background: #fff4e5;
+  color: #8a5200;
+  border: 1px solid #ffd8a8;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+}
 
+.form-card-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
+@media (max-width: 1100px) {
+  .home-main {
+    padding: 16px;
+    height: auto;
+    min-height: 100vh;
+  }
 
+  .forms-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    padding: 16px 0 24px;
+  }
 
+  .form-card {
+    width: 100%;
+    height: auto;
+    min-height: 260px;
+    padding: 18px;
+  }
 
-
-@media (max-width: 1024px) {
-    .eventscontainer {
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        padding: 20px;
-    }
-
-    .event {
-        width: 100%;
-        height: auto;
-        min-height: 330px;
-    }
+  .form-card-actions {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 640px) {
-    .eventscontainer {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        padding: 14px;
-    }
+  .home-empty-state {
+    min-height: 70vh;
+    text-align: center;
+    padding: 0 12px;
+  }
 
-    .event {
-        padding: 16px;
-    }
+  .empty-illustration {
+    width: 180px;
+    height: 180px;
+  }
 
-    .eventimginfo {
-        gap: 12px;
-    }
+  .home-empty-icon {
+    width: 64px;
+    height: 64px;
+  }
 
-    .applyevent {
-        height: auto;
-        flex-direction: column;
-    }
+  .form-card-top {
+    align-items: flex-start;
+  }
 
-    .viewdetails,
-    .apply,
-    .applied-btn {
-        height: 44px;
-        margin-top: 0;
-    }
-}
+  .form-card-icon {
+    width: 48px;
+    height: 48px;
+  }
 
-@media (max-width: 1200px) {
-    .ghhead,
-    .ghbody {
-        padding: 24px;
-    }
+  .form-card-icon svg {
+    width: 24px;
+    height: 24px;
+  }
 
-    .email,
-    .guidebox {
-        height: auto;
-        min-height: 280px;
-    }
+  .form-card-title {
+    font-size: 17px;
+  }
 
-    .newtoulynk {
-        height: auto;
-    }
+  .form-card-header {
+    gap: 10px;
+  }
 
-    .newtoulynkcard {
-        height: auto;
-        min-height: 170px;
-    }
+  .form-card-right {
+    flex-direction: column;
+    align-items: flex-end;
+  }
 
-    .faqcard {
-        height: auto;
-        min-height: 92px;
-    }
+  .form-card-footer {
+    flex-direction: column;
+  }
 
-    .protips {
-        height: auto;
-    }
-
-    .protipscont {
-        gap: 16px;
-        justify-content: space-between;
-        align-items: flex-start;
-    }
-
-    .protip {
-        width: 100%;
-        max-width: 320px;
-        gap: 12px;
-        align-items: flex-start;
-    }
-
-    .protip p {
-        max-width: none;
-    }
-}
-
-@media (max-width: 900px) {
-    .ghhead {
-        height: auto;
-    }
-
-    .gh-support {
-        font-size: 28px;
-    }
-
-    .email-guidecont {
-        flex-direction: column;
-        gap: 16px;
-    }
-
-    .email,
-    .guidebox {
-        width: 100%;
-    }
-
-    .newtoulynkcardcont {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .newtoulynkcard {
-        width: 100%;
-    }
-
-    .guidebtncont {
-        margin-top: 20px;
-    }
-
-    .faqcard {
-        padding: 16px;
-        gap: 12px;
-        align-items: flex-start;
-    }
-
-    .faqcardright {
-        gap: 12px;
-        flex: 1;
-    }
-
-    .faqans p {
-        font-size: 14px;
-    }
-
-    .faqgenre {
-        white-space: nowrap;
-        margin-top: 2px;
-    }
-
-    .protips {
-        padding: 20px;
-    }
-
-    .protipscont {
-        flex-direction: column;
-        gap: 14px;
-    }
-
-    .protip {
-        max-width: none;
-    }
-}
-
-@media (max-width: 640px) {
-    .ghhead,
-    .ghbody {
-        padding: 16px;
-    }
-
-    .gh-support {
-        font-size: 24px;
-        line-height: 1.2;
-    }
-
-    .ghheadtext {
-        font-size: 14px;
-        line-height: 1.5;
-    }
-
-    .howcanwehelp,
-    .faq {
-        font-size: 18px;
-    }
-
-    .email,
-    .guidebox {
-        padding: 16px;
-        border-radius: 14px;
-        min-height: 0;
-    }
-
-    .emailtop p,
-    .guidetop p {
-        padding: 10px 0;
-        font-size: 14px;
-        line-height: 1.45;
-    }
-
-    .emailbottom,
-    .guidebottom {
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    .newtoulynk {
-        padding: 16px;
-        border-radius: 14px;
-    }
-
-    .newtoulynkt {
-        font-size: 21px;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .newtoulynkt img {
-        width: 24px;
-        height: 24px;
-    }
-
-    .newtoulynkcard {
-        padding: 16px;
-    }
-
-    .guidebtn {
-        width: 100%;
-        padding: 12px 16px;
-    }
-
-    .faqcard {
-        flex-direction: column;
-        border-radius: 12px;
-    }
-
-    .faqgenre {
-        margin-top: 0;
-    }
-
-    .protips {
-        padding: 16px;
-        border-radius: 12px;
-    }
-
-    .protipshead {
-        margin-bottom: 14px;
-    }
-
-    .protip {
-        gap: 10px;
-    }
-
-    .protip p {
-        font-size: 14px;
-        line-height: 1.4;
-    }
+  .btn-edit,
+  .btn-preview {
+    width: 100%;
+    min-height: 40px;
+  }
 }

@@ -1,10 +1,16 @@
 import { connectDB } from "@/lib/mongodb";
 import Form from "@/models/Form";
-
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 export async function POST(req) {
   try {
     await connectDB();
 
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.email) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const { formId } = await req.json();
 
     if (!formId) {
@@ -14,12 +20,15 @@ export async function POST(req) {
       );
     }
 
-    const updatedForm = await Form.findByIdAndUpdate(
-      formId,
+    const updatedForm = await Form.findOneAndUpdate(
+      {
+        _id: formId,
+        createdBy: session.user.email.toLowerCase(),
+      },
       {
         isPublic: true,
         isPublished: true,
-        publishedAt: new Date()
+        publishedAt: new Date(),
       },
       { new: true }
     );
@@ -27,7 +36,7 @@ export async function POST(req) {
     if (!updatedForm) {
       return Response.json(
         { error: "Form not found" },
-        { status: 404 }``
+        { status: 404 }
       );
     }
 
@@ -35,7 +44,6 @@ export async function POST(req) {
 
   } catch (error) {
     console.error(error);
-
     return Response.json(
       { error: "Failed to publish form" },
       { status: 500 }
