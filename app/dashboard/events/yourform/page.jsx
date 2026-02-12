@@ -25,11 +25,17 @@ const Page = () => {
     useEffect(() => {
         const load = async () => {
             const res = await fetch("/api/forms/mine", { cache: "no-store" });
-            const data = await res.json();
+                    const payload = await res.json();
+
+            const savedForms = Array.isArray(payload)
+                ? payload
+                : Array.isArray(payload?.forms)
+                  ? payload.forms
+                  : [];
 
             const drafts = listDrafts();
 
-            setForms([...(drafts || []), ...(data || [])]);
+             setForms([...(drafts || []), ...savedForms]);
         };
 
         load();

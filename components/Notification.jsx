@@ -1,16 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import Image from "next/image";
 import "./Notification.css";
 
 const Notification = ({ onClose }) => {
-    const [open, setOpen] = useState(false);
-
-    // Trigger slide-in AFTER mount
-    useEffect(() => {
-        setOpen(true);
-    }, []);
+    const [open, setOpen] = useState(true);
 
     const handleClose = () => {
         setOpen(false);

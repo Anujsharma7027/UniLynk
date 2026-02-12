@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { ArrowLeft, CheckCircle2, Calendar as CalendarIcon, Clock, MapPin, Tag } from 'lucide-react';
@@ -10,18 +10,13 @@ import { getDraft } from "@/lib/drafts";
 
 export default function FormPreview() {
   const { formId } = useParams();
-  const [safeFormId, setSafeFormId] = useState(null);
   const [formData, setFormData] = useState(null);
   const [responses, setResponses] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [alreadyApplied, setAlreadyApplied] = useState(false);
 
-  useEffect(() => {
-    if (formId && formId !== "undefined") {
-      setSafeFormId(formId);
-    }
-  }, [formId]);
+  const safeFormId = useMemo(() => (formId && formId !== "undefined" ? formId : null), [formId]);
 
 
   // LOAD FORM
