@@ -316,3 +316,35 @@ a:focus-visible {
 .input-icon input:focus~.icon {
   color: #000;
 }
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+  .loginsec {
+    width: 100%;
+    margin: 0;
+    gap: 20px;
+  }
+
+  .card {
+    min-width: 0;
+    width: min(100%, 440px);
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    border-radius: 16px;
+    padding: 22px 16px;
+  }
+
+  .subtitle {
+    margin-bottom: 20px;
+  }
+}

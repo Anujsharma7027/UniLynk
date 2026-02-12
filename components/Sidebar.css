@@ -261,3 +261,85 @@ header {
 .settings2 img:hover {
     transform: scale(3px);
 }
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1024px) {
+    .menu {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid rgb(230, 230, 230);
+        padding: 12px 16px;
+        align-items: stretch;
+    }
+
+    .menuhead {
+        width: 100%;
+        gap: 16px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .dashboard,
+    .dashboardsettings {
+        width: 100%;
+        height: auto;
+        align-items: stretch;
+    }
+
+    .dashboard {
+        margin: 12px 0 0;
+    }
+
+    .options {
+        height: auto;
+        margin: 12px 0;
+    }
+
+    .profile {
+        width: 100%;
+        max-width: 420px;
+        margin: 12px auto 0;
+    }
+
+    .dashbutton {
+        width: 100%;
+    }
+
+    .signoutb {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+
+@media (max-width: 640px) {
+    .menu {
+        padding: 10px 12px;
+    }
+
+    .logo img {
+        height: 36px;
+    }
+
+    .profile {
+        border-radius: 20px;
+    }
+
+    .profinfo {
+        padding: 0 16px;
+    }
+
+    .username {
+        font-size: 20px;
+    }
+}

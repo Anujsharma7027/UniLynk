@@ -9,3 +9,15 @@
     width: 71%;
     min-height: 100vh;
 }
+
+
+@media (max-width: 1024px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .dashboard-main {
+        margin-left: 0;
+        width: 100%;
+    }
+}

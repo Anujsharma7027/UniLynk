@@ -114,3 +114,30 @@
     background-color: black;
     color: white;
 }
+
+
+
+
+
+
+
+@media (max-width: 1200px) {
+    .postbody {
+        right: 50%;
+        transform: translateX(50%);
+        width: min(92vw, 640px);
+    }
+}
+
+@media (max-width: 640px) {
+    .postbody {
+        bottom: 16px;
+        padding: 8px;
+        border-radius: 12px;
+    }
+
+    .postbar {
+        min-height: 120px;
+        max-height: 38vh;
+    }
+}

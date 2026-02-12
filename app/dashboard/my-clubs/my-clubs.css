@@ -227,3 +227,60 @@
     width: 20px;
     height: 20px;
 }
+
+
+
+
+
+
+
+
+@media (max-width: 1024px) {
+    .my-clubsbody {
+        padding: 24px 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .my-clubsbody {
+        padding: 16px;
+    }
+
+    .myclubshead {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .browsemorebtn {
+        margin-bottom: 10px;
+    }
+
+    .clubinfo {
+        gap: 12px;
+    }
+
+    .clubname {
+        font-size: 18px;
+        min-height: 0;
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+
+    .clubinfo ul {
+        flex-wrap: wrap;
+        gap: 8px 20px;
+    }
+
+    .clubinfobtns {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .myclubsmore {
+        height: auto;
+        min-height: 80px;
+        padding: 14px;
+    }
+}

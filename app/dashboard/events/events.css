@@ -7,12 +7,12 @@ body {
 .my-eventsbody {
     width: 100%;
     min-height: 100vh;
-    background-color: #f5f8fa;
+    background-color: #fafafa;
 }
 
 
 .eventscontainercont {
-    background-color: #f5f8fa;
+    background-color: #fafafa;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,7 +34,7 @@ body {
   grid-template-columns: repeat(auto-fill, 460px);
   justify-content: center; 
   gap: 25px 25px;
-  background-color: #f5f8fa;
+  background-color: #fafafa;
 }
 
 .event {
@@ -165,7 +165,7 @@ body {
 }
 
 .apply:hover {
-    background-color: #f5f8fa;
+    background-color: #fafafa;
 }
 
 .applied-btn {
@@ -234,4 +234,258 @@ body {
     max-width: 500px;
     text-align: center;
     margin: 0 auto 40px;
+}
+
+
+
+
+
+
+@media (max-width: 1024px) {
+    .eventscontainer {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        padding: 20px;
+    }
+
+    .event {
+        width: 100%;
+        height: auto;
+        min-height: 330px;
+    }
+}
+
+@media (max-width: 640px) {
+    .eventscontainer {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 14px;
+    }
+
+    .event {
+        padding: 16px;
+    }
+
+    .eventimginfo {
+        gap: 12px;
+    }
+
+    .applyevent {
+        height: auto;
+        flex-direction: column;
+    }
+
+    .viewdetails,
+    .apply,
+    .applied-btn {
+        height: 44px;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 1200px) {
+    .ghhead,
+    .ghbody {
+        padding: 24px;
+    }
+
+    .email,
+    .guidebox {
+        height: auto;
+        min-height: 280px;
+    }
+
+    .newtoulynk {
+        height: auto;
+    }
+
+    .newtoulynkcard {
+        height: auto;
+        min-height: 170px;
+    }
+
+    .faqcard {
+        height: auto;
+        min-height: 92px;
+    }
+
+    .protips {
+        height: auto;
+    }
+
+    .protipscont {
+        gap: 16px;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .protip {
+        width: 100%;
+        max-width: 320px;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .protip p {
+        max-width: none;
+    }
+}
+
+@media (max-width: 900px) {
+    .ghhead {
+        height: auto;
+    }
+
+    .gh-support {
+        font-size: 28px;
+    }
+
+    .email-guidecont {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .email,
+    .guidebox {
+        width: 100%;
+    }
+
+    .newtoulynkcardcont {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .newtoulynkcard {
+        width: 100%;
+    }
+
+    .guidebtncont {
+        margin-top: 20px;
+    }
+
+    .faqcard {
+        padding: 16px;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .faqcardright {
+        gap: 12px;
+        flex: 1;
+    }
+
+    .faqans p {
+        font-size: 14px;
+    }
+
+    .faqgenre {
+        white-space: nowrap;
+        margin-top: 2px;
+    }
+
+    .protips {
+        padding: 20px;
+    }
+
+    .protipscont {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .protip {
+        max-width: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .ghhead,
+    .ghbody {
+        padding: 16px;
+    }
+
+    .gh-support {
+        font-size: 24px;
+        line-height: 1.2;
+    }
+
+    .ghheadtext {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .howcanwehelp,
+    .faq {
+        font-size: 18px;
+    }
+
+    .email,
+    .guidebox {
+        padding: 16px;
+        border-radius: 14px;
+        min-height: 0;
+    }
+
+    .emailtop p,
+    .guidetop p {
+        padding: 10px 0;
+        font-size: 14px;
+        line-height: 1.45;
+    }
+
+    .emailbottom,
+    .guidebottom {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .newtoulynk {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .newtoulynkt {
+        font-size: 21px;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .newtoulynkt img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .newtoulynkcard {
+        padding: 16px;
+    }
+
+    .guidebtn {
+        width: 100%;
+        padding: 12px 16px;
+    }
+
+    .faqcard {
+        flex-direction: column;
+        border-radius: 12px;
+    }
+
+    .faqgenre {
+        margin-top: 0;
+    }
+
+    .protips {
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .protipshead {
+        margin-bottom: 14px;
+    }
+
+    .protip {
+        gap: 10px;
+    }
+
+    .protip p {
+        font-size: 14px;
+        line-height: 1.4;
+    }
 }

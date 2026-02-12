@@ -1,7 +1,7 @@
 .eventshead {
     height: 110px;
     min-width: 100%;
-    background-color: #fcfcff;
+    background-color: #fff;
     border-bottom: 1px solid rgb(230, 230, 230);
     display: flex;
     justify-content: space-between;
@@ -192,7 +192,7 @@
 
 .home-container {
   min-height: 100vh;
-  background-color: #f5f8fa;
+  background-color: #fafafa;
 }
 
 .btn-new-form {
@@ -297,7 +297,7 @@
 }
 
 .forms-container {
-  background-color: #f5f8fa;
+  background-color: #fafafa;
   display: flex;
   justify-content: center; /* center the grid block */
 }
@@ -319,7 +319,7 @@
   grid-template-columns: repeat(auto-fill, 460px);
   justify-content: center; 
   gap: 25px 25px;
-  background-color: #f5f8fa;
+  background-color: #fafafa;
 }
 
 
@@ -503,7 +503,7 @@
 }
 
 .btn-preview:hover {
-  background-color: #f5f8fa;
+  background-color: #fafafa;
   /* border-color: #000000; */
 }
 
