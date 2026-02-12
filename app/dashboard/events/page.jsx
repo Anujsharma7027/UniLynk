@@ -5,11 +5,30 @@ import "./events.css";
 import Link from "next/link";
 import { format } from "date-fns";
 import { useSearchParams } from "next/navigation";
+
+const ITEMS_PER_PAGE = 10;
+
+const getUniqueCategories = (items) => {
+  const categories = items
+    .map((item) => item.genre?.trim())
+    .filter(Boolean);
+
+  return [...new Set(categories)];
+};
+
+const paginateItems = (items, page, pageSize = ITEMS_PER_PAGE) => {
+  const startIndex = (page - 1) * pageSize;
+  return items.slice(startIndex, startIndex + pageSize);
+};
+
 const Eventspage = () => {
   const searchParams = useSearchParams();
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [appliedEvents, setAppliedEvents] = useState({});
+ const [selectedCategory, setSelectedCategory] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -47,7 +66,7 @@ const Eventspage = () => {
 
   useEffect(() => {
     const timeRange = searchParams.get("timeRange") || "all";
-    const category = (searchParams.get("category") || "").toLowerCase();
+   const categoryFromQuery = (searchParams.get("category") || "").toLowerCase();
     const query = (searchParams.get("q") || "").toLowerCase();
 
     const now = new Date();
@@ -100,8 +119,9 @@ const Eventspage = () => {
       const genre = (event.genre || "").toLowerCase();
       const title = (event.title || "").toLowerCase();
       const description = (event.description || "").toLowerCase();
+       const activeCategory = selectedCategory.toLowerCase() || categoryFromQuery;
 
-      const categoryMatch = !category || genre.includes(category);
+       const categoryMatch = !activeCategory || genre.includes(activeCategory);
       const searchMatch =
         !query ||
         title.includes(query) ||
@@ -112,11 +132,42 @@ const Eventspage = () => {
     });
 
     setFilteredEvents(filtered);
-  }, [events, searchParams]);
+   setCurrentPage(1);
+  }, [events, searchParams, selectedCategory]);
+
+  const categories = getUniqueCategories(events);
+  const totalPages = Math.max(1, Math.ceil(filteredEvents.length / ITEMS_PER_PAGE));
+  const paginatedEvents = paginateItems(filteredEvents, currentPage);
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory((prev) => (prev === category ? "" : category));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
+
 
 
   return (
     <div className="my-eventsbody">
+  {/* Category filters allow users to show cards by specific category. */}
+      <div className="event-filters-wrapper">
+        {categories.map((category) => (
+          <button
+            className={`filter-btn ${selectedCategory === category ? "active" : ""}`}
+            key={category}
+            onClick={() => handleCategorySelect(category)}
+            type="button"
+          >
+            {category}
+          </button>
+        ))}
+      </div>
 
 
        {filteredEvents.length === 0 && (
@@ -137,7 +188,7 @@ const Eventspage = () => {
       <div className="eventscontainercont">
         <div className="eventscontainer">
 
-           {filteredEvents.map((event) => (
+         {paginatedEvents.map((event) => (
             <div className="event" key={event._id}>
 
               <div className="eventimginfo">
@@ -213,6 +264,29 @@ const Eventspage = () => {
           ))}
         </div>
       </div>
+        {filteredEvents.length > ITEMS_PER_PAGE && (
+        <div className="pagination-controls">
+          <button
+            className="pagination-btn"
+            disabled={currentPage === 1}
+            onClick={handlePreviousPage}
+            type="button"
+          >
+            Previous
+          </button>
+          <span className="pagination-status">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            className="pagination-btn"
+            disabled={currentPage === totalPages}
+            onClick={handleNextPage}
+            type="button"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };
