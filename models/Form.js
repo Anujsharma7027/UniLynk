@@ -13,6 +13,7 @@ const FormSchema = new mongoose.Schema(
   {
     title: String,
     description: String,
+    club: String,
     genre: String,
     date: String,
     time: String,

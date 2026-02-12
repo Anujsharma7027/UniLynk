@@ -6,7 +6,7 @@ const EventCard = ({ event, isApplied }) => (
   <div className="event" key={event._id}>
     <div className="eventimginfo">
       <div className="eventpic">
-        <img src="/dashboard/events.svg" alt="" />
+        <img src="/dashboard/Events.svg" alt="" />
       </div>
 
       <div className="eventdef">
@@ -14,7 +14,9 @@ const EventCard = ({ event, isApplied }) => (
 
         <p className="eventname">{event.title || "Untitled Event"}</p>
 
-        <p className="clubname">{event.description || "No description available"}</p>
+        <p className="clubname">{event.club || "Club not specified"}</p>
+
+        <p className="event-description">{event.description || "No description available"}</p>
       </div>
     </div>
 

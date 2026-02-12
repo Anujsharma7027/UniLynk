@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { format } from 'date-fns';
 import './FormBuilder.css';
+import { EVENT_FORM_DROPDOWNS } from '@/lib/eventFormDropdowns';
 
 const questionTypes = [
   { value: 'short', label: 'Short Answer', icon: Type },
@@ -50,6 +51,7 @@ export default function FormBuilder() {
     _id: '',
     title: "Untitled Form",
     description: "",
+    club: "",
     date: "",
     time: "",
     location: "",
@@ -83,6 +85,8 @@ export default function FormBuilder() {
             _id: params.formId,
             title: "Untitled Form",
             description: "",
+            club: "",
+            genre: "",
             questions: [],
             createdAt: new Date().toISOString(),
           };
@@ -106,6 +110,8 @@ export default function FormBuilder() {
           _id: `draft_${Date.now()}`,
           title: "Untitled Form",
           description: "",
+          club: "",
+          genre: "",
           questions: [],
           createdAt: new Date().toISOString(),
         };
@@ -356,7 +362,27 @@ const saveChanges = async () => {
           <div className="form-genre-section">
             <div className="form-genre-label-wrapper">
               <Tag />
-              <label className="form-genre-label">Form Category</label>
+              <label className="form-genre-label">Club</label>
+            </div>
+            <select
+              value={formData.club || ''}
+              onChange={(e) => updateForm({ club: e.target.value })}
+              className="form-genre-select"
+            >
+              <option value="">Select a club</option>
+              {EVENT_FORM_DROPDOWNS.club.map((clubOption) => (
+                <option key={clubOption} value={clubOption}>
+                  {clubOption}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Genre/Category Field */}
+          <div className="form-genre-section">
+            <div className="form-genre-label-wrapper">
+              <Tag />
+              <label className="form-genre-label">Category</label>
             </div>
             <select
               value={formData.genre || ''}
@@ -364,16 +390,11 @@ const saveChanges = async () => {
               className="form-genre-select"
             >
               <option value="">Select a category</option>
-              <option value="Event Registration">Event Registration</option>
-              <option value="Survey">Survey</option>
-              <option value="Feedback">Feedback</option>
-              <option value="Contact Form">Contact Form</option>
-              <option value="RSVP">RSVP</option>
-              <option value="Application">Application</option>
-              <option value="Quiz/Test">Quiz/Test</option>
-              <option value="Order Form">Order Form</option>
-              <option value="Booking/Reservation">Booking/Reservation</option>
-              <option value="Other">Other</option>
+              {EVENT_FORM_DROPDOWNS.category.map((categoryOption) => (
+                <option key={categoryOption} value={categoryOption}>
+                  {categoryOption}
+                </option>
+              ))}
             </select>
           </div>
 
